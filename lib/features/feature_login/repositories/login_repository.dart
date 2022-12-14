@@ -18,6 +18,8 @@ abstract class LoginRepository {
     required String email,
     required String password,
   });
+
+  Future<User> signInWithGoogle();
 }
 
 class LoginRepositoryImpl implements LoginRepository {
@@ -48,5 +50,10 @@ class LoginRepositoryImpl implements LoginRepository {
       email: email,
       password: password,
     );
+  }
+
+  @override
+  Future<User> signInWithGoogle() async {
+    return await loginService.signInWithGoogle();
   }
 }

@@ -90,9 +90,7 @@ class SignInScreen extends StatelessWidget {
                               children: [
                                 SocialButton(
                                   asset: Assets.googleLogo,
-                                  onPressed: () {
-                                    //TODO: Implement Google Sign In
-                                  },
+                                  onPressed: cubit.onGoogleLoginPressed,
                                 ),
                                 const SizedBox(width: 16),
                                 SocialButton(

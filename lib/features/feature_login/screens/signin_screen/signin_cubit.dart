@@ -20,6 +20,11 @@ class SignInCubit extends Cubit<SignInState> {
     print(user);
   }
 
+  Future<void> onGoogleLoginPressed() async {
+    final user = await loginRepository.signInWithGoogle();
+    print(user);
+  }
+
   void onEmailChanged(String email) {
     emit(state.copyWith(email: email));
   }
