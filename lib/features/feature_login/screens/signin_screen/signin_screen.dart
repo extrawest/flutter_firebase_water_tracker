@@ -4,6 +4,7 @@ import 'package:water_tracker_app/common/constants.dart';
 import 'package:water_tracker_app/common/routes.dart';
 import 'package:water_tracker_app/features/feature_login/widgets/social_button.dart';
 
+import '../../repositories/login_repository.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/form_input.dart';
 import 'signin_cubit.dart';
@@ -16,9 +17,12 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return BlocProvider<SignInCubit>(
-      create: (context) => SignInCubit(),
+      create: (context) => SignInCubit(
+        loginRepository: RepositoryProvider.of<LoginRepositoryImpl>(context),
+      ),
       child: BlocBuilder<SignInCubit, SignInState>(
         builder: (context, state) {
+          final cubit = context.read<SignInCubit>();
           return Scaffold(
             body: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -53,10 +57,11 @@ class SignInScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 24),
-                            const FormInput(
+                            FormInput(
                               label: 'Email',
                               hint: 'Enter your email',
                               icon: Icons.email,
+                              onChanged: cubit.onEmailChanged,
                             ),
                             const SizedBox(height: 16),
                             FormInput(
@@ -64,15 +69,14 @@ class SignInScreen extends StatelessWidget {
                               hint: 'Enter your password',
                               icon: Icons.lock,
                               isPassword: true,
-                              onHidePassword: context.read<SignInCubit>().togglePasswordObscure,
+                              onHidePassword: cubit.togglePasswordObscure,
                               isPasswordObscured: state.isPasswordObscured,
+                              onChanged: cubit.onPasswordChanged,
                             ),
                             const SizedBox(height: 32),
                             AuthButton(
                               text: 'LOGIN',
-                              onPressed: () {
-                                //TODO: implement login
-                              },
+                              onPressed: cubit.onLoginPressed,
                             ),
                             const SizedBox(height: 16),
                             Text(
