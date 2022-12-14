@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
 
-class LoginState extends Equatable {
+class SignUpState extends Equatable {
   final bool isPasswordObscured;
 
-  const LoginState({
+  const SignUpState({
     this.isPasswordObscured = true,
   });
 
-  LoginState copyWith({
+  SignUpState copyWith({
     bool? isPasswordObscured,
   }) {
-    return LoginState(
+    return SignUpState(
       isPasswordObscured: isPasswordObscured ?? this.isPasswordObscured,
     );
   }
