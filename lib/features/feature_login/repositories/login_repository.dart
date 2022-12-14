@@ -20,6 +20,8 @@ abstract class LoginRepository {
   });
 
   Future<User> signInWithGoogle();
+
+  Future<User> loginWithFacebook();
 }
 
 class LoginRepositoryImpl implements LoginRepository {
@@ -55,5 +57,10 @@ class LoginRepositoryImpl implements LoginRepository {
   @override
   Future<User> signInWithGoogle() async {
     return await loginService.signInWithGoogle();
+  }
+
+  @override
+  Future<User> loginWithFacebook() async {
+    return await loginService.loginWithFacebook();
   }
 }

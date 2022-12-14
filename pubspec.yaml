@@ -19,6 +19,7 @@ dependencies:
   firebase_auth: ^4.2.0
 
   google_sign_in: ^5.4.2
+  flutter_facebook_auth: ^5.0.6
 
   #state
   flutter_bloc: ^8.1.1

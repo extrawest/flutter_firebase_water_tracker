@@ -95,9 +95,7 @@ class SignInScreen extends StatelessWidget {
                                 const SizedBox(width: 16),
                                 SocialButton(
                                   asset: Assets.facebookLogo,
-                                  onPressed: () {
-                                    //TODO: Implement Facebook Sign In
-                                  },
+                                  onPressed: cubit.onFacebookLoginPressed,
                                 ),
                               ],
                             ),

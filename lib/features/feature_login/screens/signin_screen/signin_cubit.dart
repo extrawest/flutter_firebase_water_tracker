@@ -25,6 +25,11 @@ class SignInCubit extends Cubit<SignInState> {
     print(user);
   }
 
+  Future<void> onFacebookLoginPressed() async {
+    final user = await loginRepository.loginWithFacebook();
+    print(user);
+  }
+
   void onEmailChanged(String email) {
     emit(state.copyWith(email: email));
   }
