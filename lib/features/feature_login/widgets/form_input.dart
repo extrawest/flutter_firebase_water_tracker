@@ -5,16 +5,20 @@ class FormInput extends StatelessWidget {
   final String hint;
   final IconData icon;
   final bool isPassword;
+  final Function(String)? onChanged;
   final VoidCallback? onHidePassword;
   final bool isPasswordObscured;
+  final String? errorText;
 
   const FormInput({
     required this.label,
     required this.hint,
     required this.icon,
     this.isPassword = false,
+    this.onChanged,
     this.onHidePassword,
     this.isPasswordObscured = true,
+    this.errorText,
     Key? key,
   }) : super(key: key);
 
@@ -49,16 +53,16 @@ class FormInput extends StatelessWidget {
               const SizedBox(width: 16),
               Expanded(
                 child: TextField(
+                  onChanged: onChanged?.call,
                   obscureText: isPassword && isPasswordObscured,
                   showCursor: true,
                   cursorColor: Colors.white,
                   style: Theme.of(context).textTheme.bodyText2,
                   decoration: InputDecoration(
                     hintText: hint,
-                    hintStyle:
-                    Theme.of(context).textTheme.bodyText2?.copyWith(
-                      color: Colors.white.withOpacity(0.5),
-                    ),
+                    hintStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
+                          color: Colors.white.withOpacity(0.5),
+                        ),
                     border: InputBorder.none,
                   ),
                 ),
