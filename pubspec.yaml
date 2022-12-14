@@ -16,6 +16,7 @@ dependencies:
 
   #firebase
   firebase_core: ^2.4.0
+  firebase_auth: ^4.2.0
 
   #state
   flutter_bloc: ^8.1.1
