@@ -10,6 +10,7 @@ abstract class LoginRepository {
   });
 
   Future<User> createUserWithEmailAndPassword({
+    required String name,
     required String email,
     required String password,
   });
@@ -34,10 +35,12 @@ class LoginRepositoryImpl implements LoginRepository {
 
   @override
   Future<User> createUserWithEmailAndPassword({
+    required String name,
     required String email,
     required String password,
   }) async {
     return await loginService.createUserWithEmailAndPassword(
+      name: name,
       email: email,
       password: password,
     );

@@ -13,21 +13,45 @@ class SignInCubit extends Cubit<SignInState> {
   }
 
   Future<void> onLoginPressed() async {
-    final user = await loginRepository.signInWithEmailAndPassword(
-      email: state.email,
-      password: state.password,
-    );
-    print(user);
+    try {
+      final user = await loginRepository.signInWithEmailAndPassword(
+        email: state.email,
+        password: state.password,
+      );
+      print(user);
+    }
+    catch (error) {
+      emit(state.copyWith(error: error.toString()));
+      Future.delayed(const Duration(seconds: 5), () {
+        emit(state.copyWith(error: ''));
+      });
+    }
   }
 
   Future<void> onGoogleLoginPressed() async {
-    final user = await loginRepository.signInWithGoogle();
-    print(user);
+    try {
+      final user = await loginRepository.signInWithGoogle();
+      print(user);
+    }
+    catch (error) {
+      emit(state.copyWith(error: error.toString()));
+      Future.delayed(const Duration(seconds: 5), () {
+        emit(state.copyWith(error: ''));
+      });
+    }
   }
 
   Future<void> onFacebookLoginPressed() async {
-    final user = await loginRepository.loginWithFacebook();
-    print(user);
+    try {
+      final user = await loginRepository.loginWithFacebook();
+      print(user);
+    }
+    catch (error) {
+      emit(state.copyWith(error: error.toString()));
+      Future.delayed(const Duration(seconds: 5), () {
+        emit(state.copyWith(error: ''));
+      });
+    }
   }
 
   void onEmailChanged(String email) {

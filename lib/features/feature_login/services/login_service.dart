@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class LoginService {
   Future<User> createUserWithEmailAndPassword({
+    required String name,
     required String email,
     required String password,
   });
@@ -22,6 +23,7 @@ abstract class LoginService {
 class LoginServiceImpl implements LoginService {
   @override
   Future<User> createUserWithEmailAndPassword({
+    required String name,
     required String email,
     required String password,
   }) async {
@@ -29,6 +31,7 @@ class LoginServiceImpl implements LoginService {
       email: email,
       password: password,
     );
+    await user.user?.updateDisplayName(name);
     return user.user!;
   }
 

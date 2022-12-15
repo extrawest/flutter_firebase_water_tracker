@@ -14,11 +14,20 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   Future<void> onRegisterButtonPressed() async {
-    final user = await loginRepository.createUserWithEmailAndPassword(
-      email: state.email,
-      password: state.password,
-    );
-    print(user);
+    try {
+      final user = await loginRepository.createUserWithEmailAndPassword(
+        name: state.name,
+        email: state.email,
+        password: state.password,
+      );
+      print(user);
+    }
+    catch (error) {
+      emit(state.copyWith(error: error.toString()));
+      Future.delayed(const Duration(seconds: 5), () {
+        emit(state.copyWith(error: ''));
+      });
+    }
   }
 
   void onNameChanged(String value) {
