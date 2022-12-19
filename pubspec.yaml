@@ -24,6 +24,7 @@ dependencies:
   #state
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
+  cloud_firestore: ^4.2.0
 
 dev_dependencies:
   flutter_test:

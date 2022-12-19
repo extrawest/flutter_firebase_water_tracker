@@ -21,7 +21,7 @@ class WaterTrackerApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Water Tracker',
         theme: applicationTheme,
-        initialRoute: signInScreenRoute,
+        initialRoute: splashScreenRoute,
         routes: applicationRoutes,
       ),
     );
