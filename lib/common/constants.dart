@@ -5,4 +5,5 @@ class Dimensions {
 class Assets {
   static const googleLogo = 'assets/icons/google_logo.svg';
   static const facebookLogo = 'assets/icons/facebook_logo.svg';
+  static const homePlaceholder = 'assets/images/glass_of_water.png';
 }
