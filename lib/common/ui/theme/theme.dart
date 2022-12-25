@@ -24,6 +24,16 @@ final applicationTheme = ThemeData(
       fontWeight: FontWeight.w600,
       color: Color(0xFFFFFFFF),
     ),
+    subtitle2: TextStyle(
+      fontSize: 15,
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+    ),
+    headline6: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.w500,
+      color: Colors.black87,
+    ),
     button: TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w700,

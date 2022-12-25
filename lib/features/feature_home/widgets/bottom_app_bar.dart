@@ -1,5 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:water_tracker_app/features/feature_home/bloc/home_bloc.dart';
+
+import '../bloc/home_event.dart';
 
 class BottomApplicationBar extends StatelessWidget {
   const BottomApplicationBar({Key? key}) : super(key: key);
@@ -92,7 +96,9 @@ class BottomApplicationBar extends StatelessWidget {
           ),
           child: IconButton(
             iconSize: 64,
-            onPressed: () {},
+            onPressed: () {
+              context.read<HomeBloc>().add(HomeEventAddDrink());
+            },
             style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                 const EdgeInsets.all(14),
