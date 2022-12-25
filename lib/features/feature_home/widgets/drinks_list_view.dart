@@ -66,7 +66,15 @@ class DrinksListView extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return const CircularProgressIndicator();
+                      return Center(
+                        child: Text(
+                          'No drinks yet',
+                          style: theme.textTheme.bodyText1?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                      );
                     }
                   },
                 ),
