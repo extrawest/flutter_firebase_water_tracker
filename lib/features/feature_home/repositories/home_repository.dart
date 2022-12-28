@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/drink_model.dart';
@@ -53,6 +54,10 @@ class HomeRepositoryImpl implements HomeRepository {
         ]),
       },
     );
+    await FirebaseAnalytics.instance.logEvent(
+      name: 'drink_added',
+      parameters: {'amount': drinkAmount},
+    );
   }
 
   @override
@@ -65,9 +70,11 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Stream<List<Drink>> drinksStream() {
     final dateTimestamp = Timestamp.now().toDate().toString().split(' ')[0];
-    return firestoreService.documentStream(
+    return firestoreService
+        .documentStream(
       path: 'users/${auth.currentUser!.uid}/days/$dateTimestamp',
-    ).map((snapshot) {
+    )
+        .map((snapshot) {
       final drinks = snapshot['drinks'] as List<dynamic>;
       return drinks.map((drink) => Drink.fromMap(drink)).toList();
     });
