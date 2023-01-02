@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_tracker_app/common/routes.dart';
@@ -8,20 +6,8 @@ import 'package:water_tracker_app/features/feature_home/screens/account_screen/a
 
 import 'account_cubit.dart';
 
-class AccountScreen extends StatefulWidget {
+class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
-
-  @override
-  State<AccountScreen> createState() => _AccountScreenState();
-}
-
-class _AccountScreenState extends State<AccountScreen> {
-
-  @override
-  void dispose() {
-    context.read<AccountCubit>().dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +19,12 @@ class _AccountScreenState extends State<AccountScreen> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              leading: const BackButton(),
+              leading: BackButton(
+                onPressed: () async {
+                  await context.read<AccountCubit>().dispose();
+                  Navigator.of(context).pop();
+                },
+              ),
               title: const Text('User info'),
             ),
             body: SafeArea(
@@ -53,6 +44,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           const SizedBox(height: 24),
                           ElevatedButton(
                             onPressed: () async {
+                              await context.read<AccountCubit>().uploadPhoto();
                             },
                             child: const Text('Upload Photo'),
                           ),

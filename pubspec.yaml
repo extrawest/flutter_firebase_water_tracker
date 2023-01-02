@@ -20,6 +20,7 @@ dependencies:
   firebase_analytics: ^10.0.8
   firebase_crashlytics: ^3.0.8
   cloud_firestore: ^4.2.0
+  firebase_storage: ^11.0.10
 
   google_sign_in: ^5.4.2
   flutter_facebook_auth: ^5.0.6
@@ -28,6 +29,8 @@ dependencies:
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
   percent_indicator: ^4.2.2
+
+  image_picker: ^0.8.6
 
 dev_dependencies:
   flutter_test:

@@ -26,11 +26,20 @@ class AccountCubit extends Cubit<AccountState> {
     }
   }
 
+  Future<void> uploadPhoto() async {
+    try {
+      await accountRepository.uploadPhoto();
+    }
+    catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> signOut() async {
     accountRepository.signOut();
   }
 
-  void dispose() {
-    _userSubscription.cancel();
+  Future<void> dispose() async {
+    await _userSubscription.cancel();
   }
 }
