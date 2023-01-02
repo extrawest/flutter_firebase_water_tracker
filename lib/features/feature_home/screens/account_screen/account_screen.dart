@@ -68,10 +68,12 @@ class _AccountScreenState extends State<AccountScreen> {
                                 .headline5
                                 ?.copyWith(fontSize: 14),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           ElevatedButton(
                             onPressed: () {
-                              //TODO: add sign out
+                              context.read<AccountCubit>().signOut();
+                              Navigator.of(context)
+                                  .pushReplacementNamed(signInScreenRoute);
                             },
                             child: const Text('Sign Out'),
                           ),

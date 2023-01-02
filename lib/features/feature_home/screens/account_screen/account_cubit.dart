@@ -15,16 +15,19 @@ class AccountCubit extends Cubit<AccountState> {
 
   Future<void> initScreen() async {
     try {
-      final userStream = await accountRepository.getUser();
-      emit(state.copyWith(status: AccountStatus.success));
+      final userStream = accountRepository.getUser();
       _userSubscription = userStream.listen((user) {
-        emit(state.copyWith(user: user));
+        emit(state.copyWith(user: user, status: AccountStatus.success));
       });
     }
     catch (e) {
       print(e);
       emit(state.copyWith(status: AccountStatus.failure));
     }
+  }
+
+  Future<void> signOut() async {
+    accountRepository.signOut();
   }
 
   void dispose() {

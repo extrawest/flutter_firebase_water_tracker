@@ -108,7 +108,11 @@ class SignUpScreen extends StatelessWidget {
                               const SizedBox(height: 32),
                               AuthButton(
                                 text: 'REGISTER',
-                                onPressed: cubit.onRegisterButtonPressed,
+                                onPressed: () {
+                                  cubit.onRegisterButtonPressed();
+                                  Navigator.of(context)
+                                      .pushReplacementNamed(homeScreenRoute);
+                                },
                               ),
                               const SizedBox(height: 32),
                               Row(

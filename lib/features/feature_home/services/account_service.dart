@@ -5,6 +5,7 @@ import '../models/user_model.dart';
 
 abstract class AccountService {
   Stream<UserModel> getUser();
+  Future<void> signOut();
 }
 
 class AccountServiceImpl implements AccountService {
@@ -17,5 +18,10 @@ class AccountServiceImpl implements AccountService {
         .doc(uuid)
         .snapshots()
         .map((snapshot) => UserModel.fromJson(snapshot.data()!));
+  }
+
+  @override
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

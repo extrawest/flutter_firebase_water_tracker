@@ -93,8 +93,10 @@ class SignInScreen extends StatelessWidget {
                               const SizedBox(height: 32),
                               AuthButton(
                                 text: 'LOGIN',
-                                onPressed:
-                                    context.read<SignInCubit>().onLoginPressed,
+                                onPressed:() {
+                                  context.read<SignInCubit>().onLoginPressed();
+                                  Navigator.of(context).pushReplacementNamed(homeScreenRoute);
+                                },
                               ),
                               const SizedBox(height: 16),
                               Text(
@@ -108,16 +110,18 @@ class SignInScreen extends StatelessWidget {
                                 children: [
                                   SocialButton(
                                     asset: Assets.googleLogo,
-                                    onPressed: context
-                                        .read<SignInCubit>()
-                                        .onGoogleLoginPressed,
+                                    onPressed: () {
+                                      context.read<SignInCubit>().onGoogleLoginPressed();
+                                      Navigator.of(context).pushReplacementNamed(homeScreenRoute);
+                                    },
                                   ),
                                   const SizedBox(width: 16),
                                   SocialButton(
                                     asset: Assets.facebookLogo,
-                                    onPressed: context
-                                        .read<SignInCubit>()
-                                        .onFacebookLoginPressed,
+                                    onPressed: () {
+                                      context.read<SignInCubit>().onFacebookLoginPressed();
+                                      Navigator.of(context).pushReplacementNamed(homeScreenRoute);
+                                    },
                                   ),
                                 ],
                               ),

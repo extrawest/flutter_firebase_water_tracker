@@ -4,6 +4,7 @@ import '../services/account_service.dart';
 
 abstract class AccountRepository {
   Stream<UserModel> getUser();
+  Future<void> signOut();
 }
 
 class AccountRepositoryImpl implements AccountRepository {
@@ -16,5 +17,10 @@ class AccountRepositoryImpl implements AccountRepository {
   @override
   Stream<UserModel> getUser() {
     return accountService.getUser();
+  }
+
+  @override
+  Future<void> signOut() async {
+    await accountService.signOut();
   }
 }
