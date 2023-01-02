@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:water_tracker_app/common/routes.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_bloc.dart';
 
 import '../bloc/home_event.dart';
@@ -52,7 +53,9 @@ class BottomApplicationBar extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed(accountScreenRoute);
+                },
                 icon: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

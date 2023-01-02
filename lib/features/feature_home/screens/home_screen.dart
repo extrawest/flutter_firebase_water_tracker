@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_bloc.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_state.dart';
 import 'package:water_tracker_app/features/feature_home/widgets/calendar_bar.dart';
-import 'package:water_tracker_app/features/feature_home/widgets/home_placeholder.dart';
 
 import '../bloc/home_event.dart';
 import '../repositories/home_repository.dart';
@@ -19,33 +18,29 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeBloc(
         RepositoryProvider.of<HomeRepositoryImpl>(context),
       )..add(HomeEventAddNewUser()),
-      child: Builder(
-        builder: (context) {
-          return BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              return Scaffold(
-                backgroundColor: Theme.of(context).colorScheme.background,
-                body: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: const [
-                        SizedBox(height: 24),
-                        CalendarBar(),
-                        SizedBox(height: 24),
-                        WaterTrackerView(),
-                        SizedBox(height: 24),
-                        BottomApplicationBar(),
-                        SizedBox(height: 24),
-                      ],
-                    ),
-                  ),
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: const [
+                    SizedBox(height: 24),
+                    CalendarBar(),
+                    SizedBox(height: 24),
+                    WaterTrackerView(),
+                    SizedBox(height: 24),
+                    BottomApplicationBar(),
+                    SizedBox(height: 24),
+                  ],
                 ),
-              );
-            }
+              ),
+            ),
           );
-        }
+        },
       ),
     );
   }

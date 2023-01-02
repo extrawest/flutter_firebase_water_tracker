@@ -47,7 +47,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeEventAddNewUser event,
     Emitter<HomeState> emit,
   ) async {
-    print('HomeBloc: _addUser');
     await _homeRepository.updateUser();
   }
 
