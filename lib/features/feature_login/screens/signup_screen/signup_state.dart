@@ -7,6 +7,7 @@ class SignUpState extends Equatable {
   final String confirmPassword;
   final bool isPasswordObscured;
   final String error;
+  final bool isSignedUp;
 
   const SignUpState({
     this.name = '',
@@ -15,6 +16,7 @@ class SignUpState extends Equatable {
     this.confirmPassword = '',
     this.isPasswordObscured = true,
     this.error = '',
+    this.isSignedUp = false,
   });
 
   SignUpState copyWith({
@@ -24,6 +26,7 @@ class SignUpState extends Equatable {
     String? confirmPassword,
     bool? isPasswordObscured,
     String? error,
+    bool? isSignedUp,
   }) {
     return SignUpState(
       name: name ?? this.name,
@@ -32,6 +35,7 @@ class SignUpState extends Equatable {
       confirmPassword: confirmPassword ?? this.confirmPassword,
       isPasswordObscured: isPasswordObscured ?? this.isPasswordObscured,
       error: error ?? this.error,
+      isSignedUp: isSignedUp ?? this.isSignedUp,
     );
   }
 
@@ -43,5 +47,6 @@ class SignUpState extends Equatable {
         password,
         confirmPassword,
         error,
+        isSignedUp,
       ];
 }

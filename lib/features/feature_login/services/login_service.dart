@@ -27,12 +27,15 @@ class LoginServiceImpl implements LoginService {
     required String email,
     required String password,
   }) async {
-    final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    final result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
-    await user.user?.updateDisplayName(name);
-    return user.user!;
+    final user = result.user!;
+    await user.updateDisplayName(name);
+    await user.reload();
+    print('User created: ${FirebaseAuth.instance.currentUser!.displayName}');
+    return FirebaseAuth.instance.currentUser!;
   }
 
   @override

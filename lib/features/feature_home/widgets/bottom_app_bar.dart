@@ -54,7 +54,7 @@ class BottomApplicationBar extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(accountScreenRoute);
+                  Navigator.of(context).pushNamed(accountScreenRoute);
                 },
                 icon: Column(
                   mainAxisSize: MainAxisSize.min,

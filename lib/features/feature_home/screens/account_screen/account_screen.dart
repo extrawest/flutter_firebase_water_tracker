@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_tracker_app/common/routes.dart';
@@ -31,11 +33,7 @@ class _AccountScreenState extends State<AccountScreen> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              leading: BackButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(homeScreenRoute);
-                },
-              ),
+              leading: const BackButton(),
               title: const Text('User info'),
             ),
             body: SafeArea(
@@ -44,14 +42,17 @@ class _AccountScreenState extends State<AccountScreen> {
                       child: Column(
                         children: [
                           const SizedBox(height: 24),
-                          CircleAvatar(
-                            radius: MediaQuery.of(context).size.width * 0.2,
-                            backgroundImage: NetworkImage(state.user!.photoUrl),
-                          ),
+                          if (state.user!.photoUrl.isNotEmpty) CircleAvatar(
+                                  radius: 64,
+                                  backgroundImage:
+                                      NetworkImage(state.user!.photoUrl),
+                                ) else const CircleAvatar(
+                                  radius: 64,
+                                  child: Icon(Icons.person),
+                                ),
                           const SizedBox(height: 24),
                           ElevatedButton(
-                            onPressed: () {
-                              //TODO: add upload image
+                            onPressed: () async {
                             },
                             child: const Text('Upload Photo'),
                           ),

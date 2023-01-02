@@ -39,15 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       _homeRepository.drinksStream();
 
   HomeBloc(this._homeRepository) : super(const HomeState()) {
-    on<HomeEventAddNewUser>(_addUser);
     on<HomeEventAddDrink>(_addDrink);
-  }
-
-  Future<void> _addUser(
-    HomeEventAddNewUser event,
-    Emitter<HomeState> emit,
-  ) async {
-    await _homeRepository.updateUser();
   }
 
   Future<void> _addDrink(

@@ -25,7 +25,9 @@ class SignUpScreen extends StatelessWidget {
           return Scaffold(
             body: BlocListener<SignUpCubit, SignUpState>(
               listener: (context, state) {
-                if (state.error.isNotEmpty) {
+                if (state.isSignedUp) {
+                  Navigator.of(context).pushReplacementNamed(homeScreenRoute);
+                } else if (state.error.isNotEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.error),
@@ -108,10 +110,8 @@ class SignUpScreen extends StatelessWidget {
                               const SizedBox(height: 32),
                               AuthButton(
                                 text: 'REGISTER',
-                                onPressed: () {
-                                  cubit.onRegisterButtonPressed();
-                                  Navigator.of(context)
-                                      .pushReplacementNamed(homeScreenRoute);
+                                onPressed: () async {
+                                  await cubit.onRegisterButtonPressed();
                                 },
                               ),
                               const SizedBox(height: 32),

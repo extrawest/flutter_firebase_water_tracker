@@ -14,11 +14,11 @@ class SignInCubit extends Cubit<SignInState> {
 
   Future<void> onLoginPressed() async {
     try {
-      final user = await loginRepository.signInWithEmailAndPassword(
+      await loginRepository.signInWithEmailAndPassword(
         email: state.email,
         password: state.password,
       );
-      print(user);
+      emit(state.copyWith(isSignedIn: true));
     }
     catch (error) {
       emit(state.copyWith(error: error.toString()));
@@ -30,8 +30,8 @@ class SignInCubit extends Cubit<SignInState> {
 
   Future<void> onGoogleLoginPressed() async {
     try {
-      final user = await loginRepository.signInWithGoogle();
-      print(user);
+      await loginRepository.signInWithGoogle();
+      emit(state.copyWith(isSignedIn: true));
     }
     catch (error) {
       emit(state.copyWith(error: error.toString()));
@@ -43,8 +43,8 @@ class SignInCubit extends Cubit<SignInState> {
 
   Future<void> onFacebookLoginPressed() async {
     try {
-      final user = await loginRepository.loginWithFacebook();
-      print(user);
+      await loginRepository.loginWithFacebook();
+      emit(state.copyWith(isSignedIn: true));
     }
     catch (error) {
       emit(state.copyWith(error: error.toString()));

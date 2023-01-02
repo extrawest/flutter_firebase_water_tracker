@@ -6,8 +6,6 @@ import '../models/drink_model.dart';
 import '../services/firestore_service.dart';
 
 abstract class HomeRepository {
-  Future<void> updateUser();
-
   Future<void> addDrink({required String drinkName, required int drinkAmount});
 
   Stream<Map<String, dynamic>> userStream();
@@ -20,19 +18,6 @@ class HomeRepositoryImpl implements HomeRepository {
   final FirestoreService firestoreService;
 
   HomeRepositoryImpl({required this.firestoreService});
-
-  @override
-  Future<void> updateUser() async {
-    await firestoreService.setData(
-      path: 'users/${auth.currentUser!.uid}',
-      data: {
-        'name': auth.currentUser!.displayName,
-        'email': auth.currentUser!.email,
-        'photo_url': auth.currentUser!.photoURL,
-        'daily_goal': 4000,
-      },
-    );
-  }
 
   @override
   Future<void> addDrink({

@@ -8,6 +8,10 @@ abstract class FirestoreService {
     bool merge = false,
   });
 
+  Future<void> setUserDocument({
+    required Map<String, dynamic> data,
+  });
+
   Stream<Map<String, dynamic>> documentStream({
     required String path,
   });
@@ -26,8 +30,20 @@ class FirestoreServiceImpl implements FirestoreService {
     bool merge = false,
   }) async {
     final reference = _firestore.doc(path);
-    print('$path: $data');
-    await reference.set(data, SetOptions(merge: merge));
+    await reference.set(data);
+  }
+
+  @override
+  Future<void> setUserDocument({
+    required Map<String, dynamic> data,
+  }) async {
+    final reference = _firestore.doc('users/${FirebaseAuth.instance.currentUser!.uid}');
+    _firestore.runTransaction((transaction) async {
+      final snapshot = await transaction.get(reference);
+      if (!snapshot.exists) {
+        transaction.set(reference, data);
+      }
+    });
   }
 
   @override

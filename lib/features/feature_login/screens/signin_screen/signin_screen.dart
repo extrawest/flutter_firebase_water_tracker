@@ -25,7 +25,10 @@ class SignInScreen extends StatelessWidget {
           return Scaffold(
             body: BlocListener<SignInCubit, SignInState>(
               listener: (context, state) {
-                if (state.error.isNotEmpty) {
+                if (state.isSignedIn) {
+                  Navigator.of(context).pushReplacementNamed(homeScreenRoute);
+                }
+                else if (state.error.isNotEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.error),
@@ -93,9 +96,8 @@ class SignInScreen extends StatelessWidget {
                               const SizedBox(height: 32),
                               AuthButton(
                                 text: 'LOGIN',
-                                onPressed:() {
-                                  context.read<SignInCubit>().onLoginPressed();
-                                  Navigator.of(context).pushReplacementNamed(homeScreenRoute);
+                                onPressed:() async {
+                                  await context.read<SignInCubit>().onLoginPressed();
                                 },
                               ),
                               const SizedBox(height: 16),
@@ -110,17 +112,15 @@ class SignInScreen extends StatelessWidget {
                                 children: [
                                   SocialButton(
                                     asset: Assets.googleLogo,
-                                    onPressed: () {
-                                      context.read<SignInCubit>().onGoogleLoginPressed();
-                                      Navigator.of(context).pushReplacementNamed(homeScreenRoute);
+                                    onPressed: () async {
+                                      await context.read<SignInCubit>().onGoogleLoginPressed();
                                     },
                                   ),
                                   const SizedBox(width: 16),
                                   SocialButton(
                                     asset: Assets.facebookLogo,
-                                    onPressed: () {
-                                      context.read<SignInCubit>().onFacebookLoginPressed();
-                                      Navigator.of(context).pushReplacementNamed(homeScreenRoute);
+                                    onPressed: () async {
+                                      await context.read<SignInCubit>().onFacebookLoginPressed();
                                     },
                                   ),
                                 ],

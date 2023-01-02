@@ -20,6 +20,7 @@ class WaterTrackerApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => LoginRepositoryImpl(
             loginService: LoginServiceImpl(),
+            fireStoreService: FirestoreServiceImpl(),
           ),
         ),
         RepositoryProvider(
