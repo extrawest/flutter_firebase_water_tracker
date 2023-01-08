@@ -31,10 +31,11 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 24),
                     const CalendarBar(),
                     const SizedBox(height: 24),
-                    if (state.status == HomeStatus.success)
-                      const WaterTrackerView()
+                    if (state.status == HomeStatus.loading ||
+                        state.status == HomeStatus.initial)
+                      const Expanded(child: Center(child: CircularProgressIndicator()))
                     else
-                      const Expanded(child: Center(child: CircularProgressIndicator())),
+                      const WaterTrackerView(),
                     const SizedBox(height: 24),
                     const BottomApplicationBar(),
                     const SizedBox(height: 24),

@@ -57,8 +57,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     FetchRemoteConfigEvent event,
     Emitter<HomeState> emit,
   ) async {
-    final progressIndicatorType = await _homeRepository.getProgressIndicatorType();
-    emit(state.copyWith(progressIndicatorType: progressIndicatorType, status: HomeStatus.success));
+    emit(state.copyWith(status: HomeStatus.loading));
+    try {
+      final progressIndicatorType = await _homeRepository.getProgressIndicatorType();
+      emit(state.copyWith(progressIndicatorType: progressIndicatorType, status: HomeStatus.success));
+    }
+    catch (e) {
+      emit(state.copyWith(status: HomeStatus.failure));
+    }
   }
 
   int calculateOverallVolume(List<Drink> drinks) {
