@@ -3,9 +3,12 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/drink_model.dart';
+import '../services/firebase_config_service.dart';
 import '../services/firestore_service.dart';
 
 abstract class HomeRepository {
+  Future<String> getProgressIndicatorType();
+
   Future<void> addDrink({required String drinkName, required int drinkAmount});
 
   Stream<Map<String, dynamic>> userStream();
@@ -16,8 +19,18 @@ abstract class HomeRepository {
 class HomeRepositoryImpl implements HomeRepository {
   final auth = FirebaseAuth.instance;
   final FirestoreService firestoreService;
+  final FirebaseConfigService firebaseConfigService;
 
-  HomeRepositoryImpl({required this.firestoreService});
+  HomeRepositoryImpl({
+    required this.firestoreService,
+    required this.firebaseConfigService,
+  });
+
+  @override
+  Future<String> getProgressIndicatorType() async {
+    await firebaseConfigService.initialize();
+    return firebaseConfigService.progressIndicatorType;
+  }
 
   @override
   Future<void> addDrink({

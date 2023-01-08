@@ -8,6 +8,7 @@ import 'package:water_tracker_app/features/feature_home/services/account_service
 import 'package:water_tracker_app/features/feature_login/repositories/login_repository.dart';
 import 'package:water_tracker_app/features/feature_login/services/login_service.dart';
 
+import 'features/feature_home/services/firebase_config_service.dart';
 import 'features/feature_home/services/firestore_service.dart';
 
 class WaterTrackerApp extends StatelessWidget {
@@ -26,6 +27,7 @@ class WaterTrackerApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => HomeRepositoryImpl(
             firestoreService: FirestoreServiceImpl(),
+            firebaseConfigService: FirebaseConfigServiceImpl(),
           ),
         ),
         RepositoryProvider(

@@ -22,6 +22,7 @@ dependencies:
   cloud_firestore: ^4.2.0
   firebase_storage: ^11.0.10
   firebase_messaging: ^14.2.1
+  firebase_remote_config: ^3.0.9
 
   google_sign_in: ^5.4.2
   flutter_facebook_auth: ^5.0.6

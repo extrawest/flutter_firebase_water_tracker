@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider<HomeBloc>(
       create: (context) => HomeBloc(
         RepositoryProvider.of<HomeRepositoryImpl>(context),
-      ),
+      )..add(FetchRemoteConfigEvent()),
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return Scaffold(

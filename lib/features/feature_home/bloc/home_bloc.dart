@@ -40,6 +40,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc(this._homeRepository) : super(const HomeState()) {
     on<HomeEventAddDrink>(_addDrink);
+    on<FetchRemoteConfigEvent>(_fetchRemoteConfig);
   }
 
   Future<void> _addDrink(
@@ -50,6 +51,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       drinkName: _getRandomDrink(),
       drinkAmount: _getRandomNumber(upTo: 400),
     );
+  }
+
+  Future<void> _fetchRemoteConfig(
+    FetchRemoteConfigEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    final progressIndicatorType = await _homeRepository.getProgressIndicatorType();
+    emit(state.copyWith(progressIndicatorType: progressIndicatorType));
   }
 
   int calculateOverallVolume(List<Drink> drinks) {
