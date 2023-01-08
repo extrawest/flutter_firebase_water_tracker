@@ -27,14 +27,17 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: const [
-                    SizedBox(height: 24),
-                    CalendarBar(),
-                    SizedBox(height: 24),
-                    WaterTrackerView(),
-                    SizedBox(height: 24),
-                    BottomApplicationBar(),
-                    SizedBox(height: 24),
+                  children: [
+                    const SizedBox(height: 24),
+                    const CalendarBar(),
+                    const SizedBox(height: 24),
+                    if (state.status == HomeStatus.success)
+                      const WaterTrackerView()
+                    else
+                      const Expanded(child: Center(child: CircularProgressIndicator())),
+                    const SizedBox(height: 24),
+                    const BottomApplicationBar(),
+                    const SizedBox(height: 24),
                   ],
                 ),
               ),

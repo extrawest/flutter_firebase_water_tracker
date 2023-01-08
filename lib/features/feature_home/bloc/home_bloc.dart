@@ -58,7 +58,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     final progressIndicatorType = await _homeRepository.getProgressIndicatorType();
-    emit(state.copyWith(progressIndicatorType: progressIndicatorType));
+    emit(state.copyWith(progressIndicatorType: progressIndicatorType, status: HomeStatus.success));
   }
 
   int calculateOverallVolume(List<Drink> drinks) {
