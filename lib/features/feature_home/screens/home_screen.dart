@@ -17,7 +17,15 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider<HomeBloc>(
       create: (context) => HomeBloc(
         RepositoryProvider.of<HomeRepositoryImpl>(context),
-      )..add(FetchRemoteConfigEvent()),
+      )
+        ..add(FetchRemoteConfigEvent())
+        ..add(HandleDynamicLinkEvent(
+            (intake) => ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('You drank $intake ml'),
+                    duration: const Duration(seconds: 2),
+                  ),
+                ))),
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return Scaffold(
@@ -33,7 +41,8 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 24),
                     if (state.status == HomeStatus.loading ||
                         state.status == HomeStatus.initial)
-                      const Expanded(child: Center(child: CircularProgressIndicator()))
+                      const Expanded(
+                          child: Center(child: CircularProgressIndicator()))
                     else
                       const WaterTrackerView(),
                     const SizedBox(height: 24),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_tracker_app/common/routes.dart';
+import 'package:water_tracker_app/features/feature_home/bloc/home_bloc.dart';
 import 'package:water_tracker_app/features/feature_home/repositories/account_repository.dart';
 import 'package:water_tracker_app/features/feature_home/screens/account_screen/account_state.dart';
 
@@ -21,8 +23,10 @@ class AccountScreen extends StatelessWidget {
             appBar: AppBar(
               leading: BackButton(
                 onPressed: () async {
-                  await context.read<AccountCubit>().dispose();
-                  Navigator.of(context).pop();
+                  await context
+                      .read<AccountCubit>()
+                      .dispose()
+                      .then((_) => Navigator.of(context).pop());
                 },
               ),
               title: const Text('User info'),
@@ -33,14 +37,17 @@ class AccountScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(height: 24),
-                          if (state.user!.photoUrl.isNotEmpty) CircleAvatar(
-                                  radius: 64,
-                                  backgroundImage:
-                                      NetworkImage(state.user!.photoUrl),
-                                ) else const CircleAvatar(
-                                  radius: 64,
-                                  child: Icon(Icons.person),
-                                ),
+                          if (state.user!.photoUrl.isNotEmpty)
+                            CircleAvatar(
+                              radius: 64,
+                              backgroundImage:
+                                  NetworkImage(state.user!.photoUrl),
+                            )
+                          else
+                            const CircleAvatar(
+                              radius: 64,
+                              child: Icon(Icons.person),
+                            ),
                           const SizedBox(height: 24),
                           ElevatedButton(
                             onPressed: () async {
@@ -60,6 +67,22 @@ class AccountScreen extends StatelessWidget {
                                 .textTheme
                                 .headline5
                                 ?.copyWith(fontSize: 14),
+                          ),
+                          IconButton(
+                            onPressed: () async {
+                              final cubit = context.read<AccountCubit>();
+                              final intake = await cubit.getOverallWaterIntake();
+                              final uri = await cubit.createDynamicLink(path: '?intake=$intake');
+                              Clipboard.setData(ClipboardData(text: uri.toString())).then((_) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Link copied to clipboard'),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                              });
+                            },
+                            icon: const Icon(Icons.share),
                           ),
                           const Spacer(),
                           ElevatedButton(

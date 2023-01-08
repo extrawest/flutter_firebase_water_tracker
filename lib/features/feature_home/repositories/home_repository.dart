@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:water_tracker_app/features/feature_home/services/dynamic_links_service.dart';
 
 import '../models/drink_model.dart';
 import '../services/firebase_config_service.dart';
@@ -14,16 +15,20 @@ abstract class HomeRepository {
   Stream<Map<String, dynamic>> userStream();
 
   Stream<List<Drink>> drinksStream();
+
+  Future<void> handleDynamicLink(void Function(int) callback);
 }
 
 class HomeRepositoryImpl implements HomeRepository {
   final auth = FirebaseAuth.instance;
   final FirestoreService firestoreService;
   final FirebaseConfigService firebaseConfigService;
+  final DynamicLinksService dynamicLinksService;
 
   HomeRepositoryImpl({
     required this.firestoreService,
     required this.firebaseConfigService,
+    required this.dynamicLinksService,
   });
 
   @override
@@ -76,5 +81,10 @@ class HomeRepositoryImpl implements HomeRepository {
       final drinks = snapshot['drinks'] as List<dynamic>;
       return drinks.map((drink) => Drink.fromMap(drink)).toList();
     });
+  }
+
+  @override
+  Future<void> handleDynamicLink(void Function(int) callback) async {
+    dynamicLinksService.handleDynamicLink(callback);
   }
 }

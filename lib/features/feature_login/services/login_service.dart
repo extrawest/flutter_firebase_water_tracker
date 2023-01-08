@@ -34,7 +34,6 @@ class LoginServiceImpl implements LoginService {
     final user = result.user!;
     await user.updateDisplayName(name);
     await user.reload();
-    print('User created: ${FirebaseAuth.instance.currentUser!.displayName}');
     return FirebaseAuth.instance.currentUser!;
   }
 

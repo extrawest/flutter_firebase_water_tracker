@@ -26,7 +26,5 @@ class FirebaseConfigServiceImpl implements FirebaseConfigService {
     ));
     remoteConfig.setDefaults(_defaults);
     await remoteConfig.fetchAndActivate();
-    print('Remote config initialized');
-    print('Progress indicator type: $progressIndicatorType');
   }
 }

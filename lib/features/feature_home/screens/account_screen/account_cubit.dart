@@ -26,6 +26,14 @@ class AccountCubit extends Cubit<AccountState> {
     }
   }
 
+  Future<int> getOverallWaterIntake() async {
+    return accountRepository.getOverallWaterIntake();
+  }
+
+  Future<Uri> createDynamicLink({required String path}) async {
+    return await accountRepository.createDynamicLink(path: path);
+  }
+
   Future<void> uploadPhoto() async {
     try {
       await accountRepository.uploadPhoto();

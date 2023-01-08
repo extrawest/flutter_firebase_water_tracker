@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_event.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_state.dart';
@@ -41,6 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this._homeRepository) : super(const HomeState()) {
     on<HomeEventAddDrink>(_addDrink);
     on<FetchRemoteConfigEvent>(_fetchRemoteConfig);
+    on<HandleDynamicLinkEvent>(_handleDynamicLink);
   }
 
   Future<void> _addDrink(
@@ -65,6 +68,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     catch (e) {
       emit(state.copyWith(status: HomeStatus.failure));
     }
+  }
+
+  Future<void> _handleDynamicLink(
+    HandleDynamicLinkEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    await _homeRepository.handleDynamicLink(event.callback);
   }
 
   int calculateOverallVolume(List<Drink> drinks) {

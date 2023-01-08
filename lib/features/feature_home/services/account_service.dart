@@ -10,6 +10,8 @@ import '../models/user_model.dart';
 abstract class AccountService {
   Stream<UserModel> getUser();
 
+  Future<int> getOverallWaterIntake();
+
   Future<void> uploadPhoto();
 
   Future<void> signOut();
@@ -28,6 +30,19 @@ class AccountServiceImpl implements AccountService {
         .doc(uuid)
         .snapshots()
         .map((snapshot) => UserModel.fromJson(snapshot.data()!));
+  }
+
+  @override
+  Future<int> getOverallWaterIntake() async {
+    final uuid = _auth.currentUser!.uid;
+    final dateTimestamp = Timestamp.now().toDate().toString().split(' ')[0];
+    final snapshot = await _db
+        .collection('users')
+        .doc(uuid)
+        .collection('days')
+        .doc(dateTimestamp)
+        .get();
+    return snapshot['drinks'].fold(0, (previousValue, element) => previousValue + element['amount']);
   }
 
   @override
