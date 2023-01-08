@@ -29,28 +29,39 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-                <string>fb875412120262882</string>
+				<string>fb875412120262882</string>
 				<string>com.googleusercontent.apps.633528768227-fj1bik1jk923h4lo64obsl414kouc2ll</string>
 			</array>
 		</dict>
 	</array>
-    <key>FacebookAppID</key>
-    <string>875412120262882</string>
-    <key>FacebookClientToken</key>
-    <string>2e5ea65be98e81d7540dad1e317da18f</string>
-    <key>FacebookDisplayName</key>
-    <string>WaterTracker</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>fbapi</string>
-      <string>fb-messenger-share-api</string>
-    </array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FacebookAppID</key>
+	<string>875412120262882</string>
+	<key>FacebookClientToken</key>
+	<string>2e5ea65be98e81d7540dad1e317da18f</string>
+	<key>FacebookDisplayName</key>
+	<string>WaterTracker</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to the camera.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app does not require access to the microphone.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires access to the photo library.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -70,11 +81,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryUsageDescription</key>
-    <string>This app requires access to the photo library.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>This app does not require access to the microphone.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>This app requires access to the camera.</string>
 </dict>
 </plist>

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 abstract class FirestoreService {
   Future<void> setData({
@@ -30,7 +31,7 @@ class FirestoreServiceImpl implements FirestoreService {
     bool merge = false,
   }) async {
     final reference = _firestore.doc(path);
-    await reference.set(data);
+    await reference.set(data, SetOptions(merge: merge));
   }
 
   @override
@@ -42,6 +43,7 @@ class FirestoreServiceImpl implements FirestoreService {
       final snapshot = await transaction.get(reference);
       if (!snapshot.exists) {
         transaction.set(reference, data);
+        FirebaseMessaging.instance.subscribeToTopic('reminder');
       }
     });
   }
