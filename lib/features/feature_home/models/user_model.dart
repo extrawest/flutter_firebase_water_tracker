@@ -19,4 +19,11 @@ class UserModel {
       dailyGoal: json['daily_goal'] ?? 0,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'daily_goal': dailyGoal,
+    'email': email,
+    'name': name,
+    'photo_url': photoUrl,
+  };
 }

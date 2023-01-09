@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:water_tracker_app/features/feature_home/services/dynamic_links_service.dart';
 
 import '../models/drink_model.dart';
+import '../models/user_model.dart';
 import '../services/firebase_config_service.dart';
 import '../services/firestore_service.dart';
 
@@ -12,9 +13,9 @@ abstract class HomeRepository {
 
   Future<void> addDrink({required String drinkName, required int drinkAmount});
 
-  Stream<Map<String, dynamic>> userStream();
+  Stream<UserModel> userStream();
 
-  Stream<List<Drink>> drinksStream();
+  Stream<List<DrinkModel>> drinksStream();
 
   Future<void> handleDynamicLink(void Function(int) callback);
 }
@@ -64,23 +65,25 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Stream<Map<String, dynamic>> userStream() {
+  Stream<UserModel> userStream() {
     return firestoreService.documentStream(
       path: 'users/${auth.currentUser!.uid}',
+      fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()!),
+      toFirestore: (data, _) => data.toJson(),
     );
   }
 
   @override
-  Stream<List<Drink>> drinksStream() {
+  Stream<List<DrinkModel>> drinksStream() {
     final dateTimestamp = Timestamp.now().toDate().toString().split(' ')[0];
     return firestoreService
         .documentStream(
       path: 'users/${auth.currentUser!.uid}/days/$dateTimestamp',
-    )
-        .map((snapshot) {
-      final drinks = snapshot['drinks'] as List<dynamic>;
-      return drinks.map((drink) => Drink.fromMap(drink)).toList();
-    });
+      fromFirestore: (snapshot, _) => (snapshot.data()!['drinks'] as List)
+              .map((drink) => DrinkModel.fromJson(drink))
+              .toList(),
+      toFirestore: (data, _) => data.toMap(),
+    );
   }
 
   @override

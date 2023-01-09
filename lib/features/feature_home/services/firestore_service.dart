@@ -13,8 +13,10 @@ abstract class FirestoreService {
     required Map<String, dynamic> data,
   });
 
-  Stream<Map<String, dynamic>> documentStream({
+  Stream<T> documentStream<T>({
     required String path,
+    required T Function(DocumentSnapshot<Map<String, dynamic>>, SnapshotOptions?) fromFirestore,
+    required Map<String, Object?> Function(dynamic, SetOptions?) toFirestore,
   });
 }
 
@@ -38,7 +40,8 @@ class FirestoreServiceImpl implements FirestoreService {
   Future<void> setUserDocument({
     required Map<String, dynamic> data,
   }) async {
-    final reference = _firestore.doc('users/${FirebaseAuth.instance.currentUser!.uid}');
+    final reference = _firestore.doc(
+        'users/${FirebaseAuth.instance.currentUser!.uid}');
     _firestore.runTransaction((transaction) async {
       final snapshot = await transaction.get(reference);
       if (!snapshot.exists) {
@@ -49,11 +52,16 @@ class FirestoreServiceImpl implements FirestoreService {
   }
 
   @override
-  Stream<Map<String, dynamic>> documentStream({
+  Stream<T> documentStream<T>({
     required String path,
+    required T Function(DocumentSnapshot<Map<String, dynamic>>, SnapshotOptions?) fromFirestore,
+    required Map<String, Object?> Function(dynamic, SetOptions?) toFirestore,
   }) {
-    final reference = _firestore.doc(path);
+    final reference = _firestore.doc(path).withConverter(
+      fromFirestore: fromFirestore,
+      toFirestore: toFirestore,
+    );
     final snapshots = reference.snapshots();
-    return snapshots.map((snapshot) => snapshot.data() as Map<String, dynamic>);
+    return snapshots.map((snapshot) => snapshot.data()!);
   }
 }

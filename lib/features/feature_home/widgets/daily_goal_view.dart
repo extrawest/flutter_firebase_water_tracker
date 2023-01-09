@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:water_tracker_app/common/routes.dart';
+import 'package:water_tracker_app/features/feature_home/models/user_model.dart';
 
 import '../bloc/home_bloc.dart';
 import '../models/drink_model.dart';
@@ -87,8 +88,8 @@ class DailyGoalView extends StatelessWidget {
 
   Widget _buildCircularProgressIndicator(
     BuildContext context, {
-    required AsyncSnapshot<Map<String, dynamic>> userSnapshot,
-    required AsyncSnapshot<List<Drink>> drinkSnapshot,
+    required AsyncSnapshot<UserModel> userSnapshot,
+    required AsyncSnapshot<List<DrinkModel>> drinkSnapshot,
   }) {
     final theme = Theme.of(context);
     final overallVolume = context
@@ -112,7 +113,7 @@ class DailyGoalView extends StatelessWidget {
           .read<HomeBloc>()
           .calculateProgress(
             overallVolume,
-            userSnapshot.data!['daily_goal'],
+            userSnapshot.data?.dailyGoal ?? 0,
           )
           .toDouble(),
       center: Column(
@@ -130,7 +131,7 @@ class DailyGoalView extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            'of ${userSnapshot.data?['daily_goal']} ml',
+            'of ${userSnapshot.data?.dailyGoal} ml',
             style: theme.textTheme.subtitle2,
           ),
         ],
@@ -140,8 +141,8 @@ class DailyGoalView extends StatelessWidget {
 
   Widget _buildLinearProgressIndicator(
       BuildContext context, {
-        required AsyncSnapshot<Map<String, dynamic>> userSnapshot,
-        required AsyncSnapshot<List<Drink>> drinkSnapshot,
+        required AsyncSnapshot<UserModel> userSnapshot,
+        required AsyncSnapshot<List<DrinkModel>> drinkSnapshot,
       }) {
     final theme = Theme.of(context);
     final overallVolume = context
@@ -162,7 +163,7 @@ class DailyGoalView extends StatelessWidget {
           .read<HomeBloc>()
           .calculateProgress(
         overallVolume,
-        userSnapshot.data!['daily_goal'],
+        userSnapshot.data?.dailyGoal ?? 0,
       )
           .toDouble(),
       trailing: Column(
@@ -181,7 +182,7 @@ class DailyGoalView extends StatelessWidget {
         ],
       ),
       leading: Text(
-        'of ${userSnapshot.data?['daily_goal']} ml',
+        'of ${userSnapshot.data?.dailyGoal} ml',
         style: theme.textTheme.subtitle2,
       ),
     );

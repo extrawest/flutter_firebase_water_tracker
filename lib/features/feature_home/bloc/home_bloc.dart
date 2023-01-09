@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_event.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_state.dart';
+import 'package:water_tracker_app/features/feature_home/models/user_model.dart';
 import 'package:water_tracker_app/features/feature_home/repositories/home_repository.dart';
 
 import '../models/drink_model.dart';
@@ -35,9 +36,9 @@ String _getRandomDrink() {
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   final HomeRepository _homeRepository;
-  late Stream<Map<String, dynamic>> userStream = _homeRepository.userStream();
-  late Stream<List<Drink>> drinksStream = _homeRepository.drinksStream();
-  late Stream<List<Drink>> drinksStreamSecond =
+  late Stream<UserModel> userStream = _homeRepository.userStream();
+  late Stream<List<DrinkModel>> drinksStream = _homeRepository.drinksStream();
+  late Stream<List<DrinkModel>> drinksStreamSecond =
       _homeRepository.drinksStream();
 
   HomeBloc(this._homeRepository) : super(const HomeState()) {
@@ -77,7 +78,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     await _homeRepository.handleDynamicLink(event.callback);
   }
 
-  int calculateOverallVolume(List<Drink> drinks) {
+  int calculateOverallVolume(List<DrinkModel> drinks) {
     return drinks.fold(
         0, (previousValue, element) => previousValue + element.amount);
   }
