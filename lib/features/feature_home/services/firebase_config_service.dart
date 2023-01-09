@@ -21,8 +21,8 @@ class FirebaseConfigServiceImpl implements FirebaseConfigService {
   @override
   Future<void> initialize() async {
     remoteConfig.setConfigSettings(RemoteConfigSettings(
-      fetchTimeout: const Duration(seconds: 10),
-      minimumFetchInterval: const Duration(seconds: 10),
+      fetchTimeout: const Duration(minutes: 10),
+      minimumFetchInterval: const Duration(minutes: 10),
     ));
     remoteConfig.setDefaults(_defaults);
     await remoteConfig.fetchAndActivate();
