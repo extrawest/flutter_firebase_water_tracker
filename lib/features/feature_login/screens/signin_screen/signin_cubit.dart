@@ -20,11 +20,12 @@ class SignInCubit extends Cubit<SignInState> {
       );
       emit(state.copyWith(isSignedIn: true));
     }
-    catch (error) {
+    catch (error, stackTrace) {
       emit(state.copyWith(error: error.toString()));
       Future.delayed(const Duration(seconds: 5), () {
         emit(state.copyWith(error: ''));
       });
+      loginRepository.recordError(error.toString(), stackTrace, reason: 'Login Error');
     }
   }
 
@@ -33,11 +34,12 @@ class SignInCubit extends Cubit<SignInState> {
       await loginRepository.signInWithGoogle();
       emit(state.copyWith(isSignedIn: true));
     }
-    catch (error) {
+    catch (error, stackTrace) {
       emit(state.copyWith(error: error.toString()));
       Future.delayed(const Duration(seconds: 5), () {
         emit(state.copyWith(error: ''));
       });
+      loginRepository.recordError(error.toString(), stackTrace, reason: 'Login Error');
     }
   }
 
@@ -46,11 +48,12 @@ class SignInCubit extends Cubit<SignInState> {
       await loginRepository.loginWithFacebook();
       emit(state.copyWith(isSignedIn: true));
     }
-    catch (error) {
+    catch (error, stackTrace) {
       emit(state.copyWith(error: error.toString()));
       Future.delayed(const Duration(seconds: 5), () {
         emit(state.copyWith(error: ''));
       });
+      loginRepository.recordError(error.toString(), stackTrace, reason: 'Login Error');
     }
   }
 

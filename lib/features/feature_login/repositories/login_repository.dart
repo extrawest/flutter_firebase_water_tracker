@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:water_tracker_app/features/feature_home/services/FirebaseCrashlyticsService.dart';
 import 'package:water_tracker_app/features/feature_home/services/firestore_service.dart';
 
 import '../services/login_service.dart';
@@ -18,15 +19,20 @@ abstract class LoginRepository {
   Future<void> signInWithGoogle();
 
   Future<void> loginWithFacebook();
+
+  Future<void> recordError(String message, StackTrace stackTrace,
+      {dynamic reason});
 }
 
 class LoginRepositoryImpl implements LoginRepository {
   final LoginService loginService;
   final FirestoreService fireStoreService;
+  final FirebaseCrashlyticsService firebaseCrashlyticsService;
 
   const LoginRepositoryImpl({
     required this.loginService,
     required this.fireStoreService,
+    required this.firebaseCrashlyticsService,
   });
 
   @override
@@ -92,5 +98,11 @@ class LoginRepositoryImpl implements LoginRepository {
         'daily_goal': 4000,
       },
     );
+  }
+
+  @override
+  Future<void> recordError(String message, StackTrace stackTrace,
+      {dynamic reason}) {
+    return firebaseCrashlyticsService.recordError(message, stackTrace, reason: reason);
   }
 }

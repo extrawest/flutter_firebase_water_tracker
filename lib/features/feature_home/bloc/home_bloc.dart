@@ -66,8 +66,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final progressIndicatorType = await _homeRepository.getProgressIndicatorType();
       emit(state.copyWith(progressIndicatorType: progressIndicatorType, status: HomeStatus.success));
     }
-    catch (e) {
+    catch (e, stackTrace) {
       emit(state.copyWith(status: HomeStatus.failure));
+      await _homeRepository.recordError(e.toString(), stackTrace, reason: e);
     }
   }
 

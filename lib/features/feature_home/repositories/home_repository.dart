@@ -5,6 +5,7 @@ import 'package:water_tracker_app/features/feature_home/services/dynamic_links_s
 
 import '../models/drink_model.dart';
 import '../models/user_model.dart';
+import '../services/FirebaseCrashlyticsService.dart';
 import '../services/firebase_config_service.dart';
 import '../services/firestore_service.dart';
 
@@ -18,6 +19,9 @@ abstract class HomeRepository {
   Stream<List<DrinkModel>> drinksStream();
 
   Future<void> handleDynamicLink(void Function(int) callback);
+
+  Future<void> recordError(String message, StackTrace stackTrace,
+      {dynamic reason});
 }
 
 class HomeRepositoryImpl implements HomeRepository {
@@ -25,11 +29,13 @@ class HomeRepositoryImpl implements HomeRepository {
   final FirestoreService firestoreService;
   final FirebaseConfigService firebaseConfigService;
   final DynamicLinksService dynamicLinksService;
+  final FirebaseCrashlyticsService firebaseCrashlyticsService;
 
   HomeRepositoryImpl({
     required this.firestoreService,
     required this.firebaseConfigService,
     required this.dynamicLinksService,
+    required this.firebaseCrashlyticsService,
   });
 
   @override
@@ -89,5 +95,11 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<void> handleDynamicLink(void Function(int) callback) async {
     dynamicLinksService.handleDynamicLink(callback);
+  }
+
+  @override
+  Future<void> recordError(String message, StackTrace stackTrace,
+      {dynamic reason}) {
+    return firebaseCrashlyticsService.recordError(message, stackTrace, reason: reason);
   }
 }

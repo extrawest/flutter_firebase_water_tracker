@@ -20,9 +20,9 @@ class AccountCubit extends Cubit<AccountState> {
         emit(state.copyWith(user: user, status: AccountStatus.success));
       });
     }
-    catch (e) {
-      print(e);
+    catch (e, stackTrace) {
       emit(state.copyWith(status: AccountStatus.failure));
+      accountRepository.recordError(e.toString(), stackTrace, reason: 'Account Error');
     }
   }
 
@@ -38,8 +38,8 @@ class AccountCubit extends Cubit<AccountState> {
     try {
       await accountRepository.uploadPhoto();
     }
-    catch (e) {
-      print(e);
+    catch (e, stackTrace) {
+      accountRepository.recordError(e.toString(), stackTrace, reason: 'Account Error');
     }
   }
 

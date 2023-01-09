@@ -8,6 +8,7 @@ import 'package:water_tracker_app/features/feature_home/services/account_service
 import 'package:water_tracker_app/features/feature_login/repositories/login_repository.dart';
 import 'package:water_tracker_app/features/feature_login/services/login_service.dart';
 
+import 'features/feature_home/services/FirebaseCrashlyticsService.dart';
 import 'features/feature_home/services/dynamic_links_service.dart';
 import 'features/feature_home/services/firebase_config_service.dart';
 import 'features/feature_home/services/firestore_service.dart';
@@ -23,6 +24,7 @@ class WaterTrackerApp extends StatelessWidget {
           create: (context) => LoginRepositoryImpl(
             loginService: LoginServiceImpl(),
             fireStoreService: FirestoreServiceImpl(),
+            firebaseCrashlyticsService: FirebaseCrashlyticsServiceImpl(),
           ),
         ),
         RepositoryProvider(
@@ -30,12 +32,14 @@ class WaterTrackerApp extends StatelessWidget {
             firestoreService: FirestoreServiceImpl(),
             firebaseConfigService: FirebaseConfigServiceImpl(),
             dynamicLinksService: DynamicLinksServiceImpl(),
+            firebaseCrashlyticsService: FirebaseCrashlyticsServiceImpl(),
           ),
         ),
         RepositoryProvider(
           create: (context) => AccountRepositoryImpl(
             accountService: AccountServiceImpl(),
             dynamicLinkService: DynamicLinksServiceImpl(),
+            firebaseCrashlyticsService: FirebaseCrashlyticsServiceImpl(),
           ),
         ),
       ],

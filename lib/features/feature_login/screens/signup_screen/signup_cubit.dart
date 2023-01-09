@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../repositories/login_repository.dart';
@@ -22,11 +21,12 @@ class SignUpCubit extends Cubit<SignUpState> {
       );
       emit(state.copyWith(isSignedUp: true));
     }
-    catch (error) {
+    catch (error, stackTrace) {
       emit(state.copyWith(error: error.toString()));
       Future.delayed(const Duration(seconds: 5), () {
         emit(state.copyWith(error: ''));
       });
+      loginRepository.recordError(error.toString(), stackTrace, reason: 'Login Error');
     }
   }
 
