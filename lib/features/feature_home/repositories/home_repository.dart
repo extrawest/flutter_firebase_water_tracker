@@ -12,7 +12,7 @@ import '../services/firestore_service.dart';
 abstract class HomeRepository {
   Future<String> getProgressIndicatorType();
 
-  Future<void> addDrink({required String drinkName, required int drinkAmount});
+  Future<bool> addDrink({required String drinkName, required int drinkAmount});
 
   Stream<UserModel> userStream();
 
@@ -45,7 +45,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<void> addDrink({
+  Future<bool> addDrink({
     required String drinkName,
     required int drinkAmount,
   }) async {
@@ -68,6 +68,7 @@ class HomeRepositoryImpl implements HomeRepository {
       name: 'drink_added',
       parameters: {'amount': drinkAmount},
     );
+    return true;
   }
 
   @override

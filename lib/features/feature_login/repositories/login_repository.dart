@@ -5,20 +5,20 @@ import 'package:water_tracker_app/features/feature_home/services/firestore_servi
 import '../services/login_service.dart';
 
 abstract class LoginRepository {
-  Future<void> createUserWithEmailAndPassword({
+  Future<User> createUserWithEmailAndPassword({
     required String name,
     required String email,
     required String password,
   });
 
-  Future<void> signInWithEmailAndPassword({
+  Future<User> signInWithEmailAndPassword({
     required String email,
     required String password,
   });
 
-  Future<void> signInWithGoogle();
+  Future<User> signInWithGoogle();
 
-  Future<void> loginWithFacebook();
+  Future<User> loginWithFacebook();
 
   Future<void> recordError(String message, StackTrace stackTrace,
       {dynamic reason});
@@ -36,7 +36,7 @@ class LoginRepositoryImpl implements LoginRepository {
   });
 
   @override
-  Future<void> createUserWithEmailAndPassword({
+  Future<User> createUserWithEmailAndPassword({
     required String name,
     required String email,
     required String password,
@@ -48,13 +48,14 @@ class LoginRepositoryImpl implements LoginRepository {
         password: password,
       );
       await _addUserDataToFireStore(user);
+      return user;
     } catch (error) {
       rethrow;
     }
   }
 
   @override
-  Future<void> signInWithEmailAndPassword({
+  Future<User> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -64,26 +65,29 @@ class LoginRepositoryImpl implements LoginRepository {
         password: password,
       );
       _addUserDataToFireStore(user);
+      return user;
     } catch (error) {
       rethrow;
     }
   }
 
   @override
-  Future<void> signInWithGoogle() async {
+  Future<User> signInWithGoogle() async {
     try {
       final user = await loginService.signInWithGoogle();
       _addUserDataToFireStore(user);
+      return user;
     } catch (error) {
       rethrow;
     }
   }
 
   @override
-  Future<void> loginWithFacebook() async {
+  Future<User> loginWithFacebook() async {
     try {
       final user = await loginService.loginWithFacebook();
       _addUserDataToFireStore(user);
+      return user;
     } catch (error) {
       rethrow;
     }
