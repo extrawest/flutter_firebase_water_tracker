@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:water_tracker_app/common/routes.dart';
 
 import '../bloc/home_bloc.dart';
+import 'drinks_list.dart';
 
 class DrinksListView extends StatelessWidget {
   const DrinksListView({Key? key}) : super(key: key);
@@ -36,35 +36,7 @@ class DrinksListView extends StatelessWidget {
                   stream: context.read<HomeBloc>().drinksStreamSecond,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            final drink = snapshot.data![index];
-                            return ListTile(
-                              title: Text(
-                                drink.name,
-                                style: theme.textTheme.bodyText1?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.blueGrey,
-                                ),
-                              ),
-                              subtitle: Text(
-                                drink.timestamp.split('.')[0],
-                                style: theme.textTheme.subtitle2,
-                              ),
-                              trailing: Text(
-                                '${drink.amount} ml',
-                                style: theme.textTheme.bodyText1?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.blueGrey,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
+                      return DrinksList(drinks: snapshot.data!);
                     } else {
                       return Center(
                         child: Text(
