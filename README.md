@@ -2,7 +2,7 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)]()
 ![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
 ![GitHub release](https://img.shields.io/badge/release-v1.0.0-blue)
-[![View DEMO](https://img.shields.io/badge/VIEW-DEMO-lightgreen.svg)](https://streamable.com/0yr60x)
+[![View DEMO](https://img.shields.io/badge/VIEW-DEMO-lightgreen.svg)](https://streamable.com/qat029)
 
 # Water tracker app 🚰
 
@@ -13,7 +13,7 @@
 - The app supports many others Firebase features such as Cloud Messaging, Crashlytics, Remote Config, etc.
 
 ## Demo
-[Video](https://streamable.com/0yr60x) wich showcases the core functionlaity of the app with all screens developed yet.
+[Video](https://streamable.com/qat029) wich showcases the core functionlaity of the app with all screens developed yet.
 
 ## How to run
 - Clone the project
