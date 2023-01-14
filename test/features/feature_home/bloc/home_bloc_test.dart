@@ -16,6 +16,20 @@ void main() {
     homeBloc = HomeBloc(mockHomeRepositoryImpl);
   });
 
+  test('should return random amount of drink volume', () {
+    final example1 = getRandomNumber(upTo: 500);
+    final example2 = getRandomNumber(upTo: 500);
+
+    expect(example1, isNot(example2));
+  });
+
+  test('should return random drink name', () {
+    final example1 = getRandomDrink();
+    final example2 = getRandomDrink();
+
+    expect(example1, isNot(example2));
+  });
+
   test('should calculate daily progress base on current intake', () {
     const currentIntake = 1000;
     const goal = 2000;

@@ -22,13 +22,13 @@ final _drinks = {
   7: 'Soda',
 };
 
-int _getRandomNumber({required int upTo}) {
+int getRandomNumber({required int upTo}) {
   final random = Random();
   final randomInt = random.nextInt(upTo);
   return randomInt - randomInt % 10;
 }
 
-String _getRandomDrink() {
+String getRandomDrink() {
   final random = _drinks.keys.toList()..shuffle();
   return _drinks[random.first]!;
 }
@@ -52,8 +52,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     await _homeRepository.addDrink(
-      drinkName: _getRandomDrink(),
-      drinkAmount: _getRandomNumber(upTo: 400),
+      drinkName: getRandomDrink(),
+      drinkAmount: getRandomNumber(upTo: 400),
     );
   }
 
