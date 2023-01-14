@@ -110,6 +110,7 @@ class SignInScreen extends StatelessWidget {
                       style: theme.textTheme.subtitle1,
                     ),
                     TextButton(
+                      key: const ValueKey('signUpButton'),
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(0),
                       ),
