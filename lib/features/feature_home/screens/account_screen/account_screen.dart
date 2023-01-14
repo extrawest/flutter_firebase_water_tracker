@@ -57,12 +57,12 @@ class AccountScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 24),
                           Text(
-                            state.user!.name ?? 'No name',
+                            state.user!.name,
                             style: Theme.of(context).textTheme.headline5,
                           ),
                           const SizedBox(height: 24),
                           Text(
-                            state.user!.email ?? '',
+                            state.user!.email,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5
