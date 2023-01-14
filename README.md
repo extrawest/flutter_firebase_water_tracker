@@ -16,7 +16,7 @@
 [Video](https://streamable.com/qat029) wich showcases the core functionlaity of the app with all screens developed yet.
 
 ## How to run
-- Clone the project
+- Clone the project 
 ```shell
 git clone https://gitlab.extrawest.com/i-training/flutter/oleksii.melnychenko_google_maps_app.git_your_project_name
 ```
