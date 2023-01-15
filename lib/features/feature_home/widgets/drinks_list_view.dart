@@ -36,7 +36,7 @@ class DrinksListView extends StatelessWidget {
                 BlocBuilder<HomeBloc, HomeState>(
                   builder: (context, state) {
                     final drinks = state.drinks;
-                    if (drinks != null) {
+                    if (drinks.isNotEmpty) {
                       return DrinksList(drinks: drinks);
                     } else {
                       return Center(

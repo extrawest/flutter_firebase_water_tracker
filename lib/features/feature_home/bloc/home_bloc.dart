@@ -65,7 +65,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _homeInitUserEvent(HomeInitUserEvent event, Emitter<HomeState> emit) async {
     await emit.forEach(
       _homeRepository.userStream(),
-      onData: (user) => state.copyWith(user: user, status: HomeStatus.success),
+      onData: (user) => state.copyWith(user: () => user, status: HomeStatus.success),
     );
   }
 
@@ -98,7 +98,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           progressIndicatorType: progressIndicatorType,
           status: HomeStatus.success));
     } catch (e, stackTrace) {
-      emit(state.copyWith(status: HomeStatus.failure));
+      // emit(state.copyWith(status: HomeStatus.failure));
       await _homeRepository.recordError(e.toString(), stackTrace, reason: e);
     }
   }
