@@ -33,4 +33,9 @@ flutter pub get
 flutter run
 ```
 
+to run shader warmup
+```shell
+flutter drive --profile --cache-sksl --write-sksl-on-exit sksl_shader01.json --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
+```
+
 Maintained by **Lesha Melnychenko**
