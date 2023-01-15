@@ -1,6 +1,9 @@
-import 'dart:ui';
 
 abstract class HomeEvent {}
+
+class HomeInitUserEvent extends HomeEvent {}
+
+class HomeInitDrinksEvent extends HomeEvent {}
 
 class HomeEventAddDrink extends HomeEvent {}
 

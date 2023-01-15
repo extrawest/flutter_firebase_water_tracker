@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/home_bloc.dart';
+import '../bloc/home_state.dart';
 import 'drinks_list.dart';
 
 class DrinksListView extends StatelessWidget {
@@ -32,11 +33,11 @@ class DrinksListView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const SizedBox.shrink(),
-                StreamBuilder(
-                  stream: context.read<HomeBloc>().drinksStreamSecond,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return DrinksList(drinks: snapshot.data!);
+                BlocBuilder<HomeBloc, HomeState>(
+                  builder: (context, state) {
+                    final drinks = state.drinks;
+                    if (drinks != null) {
+                      return DrinksList(drinks: drinks);
                     } else {
                       return Center(
                         child: Text(

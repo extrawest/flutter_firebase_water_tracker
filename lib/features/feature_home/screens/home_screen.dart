@@ -19,6 +19,8 @@ class HomeScreen extends StatelessWidget {
         RepositoryProvider.of<HomeRepositoryImpl>(context),
       )
         ..add(FetchRemoteConfigEvent())
+        ..add(HomeInitUserEvent())
+        ..add(HomeInitDrinksEvent())
         ..add(HandleDynamicLinkEvent(
             (intake) => ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

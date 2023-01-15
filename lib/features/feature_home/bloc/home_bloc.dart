@@ -37,14 +37,43 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   final HomeRepository _homeRepository;
   late Stream<UserModel> userStream = _homeRepository.userStream();
-  late Stream<List<DrinkModel>> drinksStream = _homeRepository.drinksStream();
-  late Stream<List<DrinkModel>> drinksStreamSecond =
-      _homeRepository.drinksStream();
 
   HomeBloc(this._homeRepository) : super(const HomeState()) {
+    on<HomeInitUserEvent>(_homeInitUserEvent);
+    on<HomeInitDrinksEvent>(_homeInitDrinksEvent);
     on<HomeEventAddDrink>(_addDrink);
     on<FetchRemoteConfigEvent>(_fetchRemoteConfig);
     on<HandleDynamicLinkEvent>(_handleDynamicLink);
+  }
+
+  double get overallVolume {
+    final drinks = state.drinks;
+    if (drinks != null) {
+      return drinks.fold(0, (previousValue, element) => previousValue + element.amount);
+    }
+    else {
+      return 0;
+    }
+  }
+
+  double get overallVolumePercentage {
+    final overallVolume = this.overallVolume;
+    final goal = state.user?.dailyGoal ?? 0;
+    return (overallVolume > goal ? goal : overallVolume) / goal;
+  }
+
+  Future<void> _homeInitUserEvent(HomeInitUserEvent event, Emitter<HomeState> emit) async {
+    await emit.forEach(
+      _homeRepository.userStream(),
+      onData: (user) => state.copyWith(user: user, status: HomeStatus.success),
+    );
+  }
+
+  Future<void> _homeInitDrinksEvent(HomeInitDrinksEvent event, Emitter<HomeState> emit) async {
+    await emit.forEach(
+      _homeRepository.drinksStream(),
+      onData: (drinks) => state.copyWith(drinks: drinks, status: HomeStatus.success),
+    );
   }
 
   Future<void> _addDrink(
@@ -63,10 +92,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     emit(state.copyWith(status: HomeStatus.loading));
     try {
-      final progressIndicatorType = await _homeRepository.getProgressIndicatorType();
-      emit(state.copyWith(progressIndicatorType: progressIndicatorType, status: HomeStatus.success));
-    }
-    catch (e, stackTrace) {
+      final progressIndicatorType =
+          await _homeRepository.getProgressIndicatorType();
+      emit(state.copyWith(
+          progressIndicatorType: progressIndicatorType,
+          status: HomeStatus.success));
+    } catch (e, stackTrace) {
       emit(state.copyWith(status: HomeStatus.failure));
       await _homeRepository.recordError(e.toString(), stackTrace, reason: e);
     }
@@ -77,11 +108,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     await _homeRepository.handleDynamicLink(event.callback);
-  }
-
-  int calculateOverallVolume(List<DrinkModel> drinks) {
-    return drinks.fold(
-        0, (previousValue, element) => previousValue + element.amount);
   }
 
   double calculateProgress(int current, int goal) {
