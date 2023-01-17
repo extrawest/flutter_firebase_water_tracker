@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:water_tracker_app/features/feature_home/services/FirebaseCrashlyticsService.dart';
+import 'package:water_tracker_app/features/feature_home/services/firebase_crashlytics_service.dart';
 import 'package:water_tracker_app/features/feature_home/services/firestore_service.dart';
 
 import '../services/login_service.dart';

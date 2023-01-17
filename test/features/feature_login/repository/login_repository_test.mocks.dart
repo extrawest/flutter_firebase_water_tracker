@@ -8,7 +8,7 @@ import 'dart:async' as _i4;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i6;
 import 'package:firebase_auth/firebase_auth.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:water_tracker_app/features/feature_home/services/FirebaseCrashlyticsService.dart'
+import 'package:water_tracker_app/features/feature_home/services/firebase_crashlytics_service.dart'
     as _i7;
 import 'package:water_tracker_app/features/feature_home/services/firestore_service.dart'
     as _i5;

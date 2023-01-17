@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +8,6 @@ import 'package:water_tracker_app/features/feature_home/bloc/home_state.dart';
 import 'package:water_tracker_app/features/feature_home/models/user_model.dart';
 import 'package:water_tracker_app/features/feature_home/repositories/home_repository.dart';
 
-import '../models/drink_model.dart';
 
 final _drinks = {
   0: 'Water',
@@ -48,7 +46,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   double get overallVolume {
     final drinks = state.drinks;
-    if (drinks != null) {
+    if (drinks.isNotEmpty) {
       return drinks.fold(0, (previousValue, element) => previousValue + element.amount);
     }
     else {

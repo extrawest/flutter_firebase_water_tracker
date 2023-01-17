@@ -2,7 +2,7 @@ import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:water_tracker_app/features/feature_home/services/FirebaseCrashlyticsService.dart';
+import 'package:water_tracker_app/features/feature_home/services/firebase_crashlytics_service.dart';
 import 'package:water_tracker_app/features/feature_home/services/firestore_service.dart';
 import 'package:water_tracker_app/features/feature_login/repositories/login_repository.dart';
 import 'package:water_tracker_app/features/feature_login/services/login_service.dart';

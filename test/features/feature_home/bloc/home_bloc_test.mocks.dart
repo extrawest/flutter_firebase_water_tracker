@@ -17,7 +17,7 @@ import 'package:water_tracker_app/features/feature_home/services/dynamic_links_s
     as _i5;
 import 'package:water_tracker_app/features/feature_home/services/firebase_config_service.dart'
     as _i4;
-import 'package:water_tracker_app/features/feature_home/services/FirebaseCrashlyticsService.dart'
+import 'package:water_tracker_app/features/feature_home/services/firebase_crashlytics_service.dart'
     as _i6;
 import 'package:water_tracker_app/features/feature_home/services/firestore_service.dart'
     as _i3;
