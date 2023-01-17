@@ -14,6 +14,7 @@ class DailyGoalView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: theme.colorScheme.background,
       body: Container(
         decoration: BoxDecoration(
@@ -98,7 +99,7 @@ class DailyGoalView extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            '${bloc.overallVolume}',
+            '${bloc.overallVolume.toInt()}',
             style: theme.textTheme.headline6,
           ),
           const SizedBox(height: 4),
@@ -136,7 +137,7 @@ class DailyGoalView extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            '${bloc.overallVolume}',
+            '${bloc.overallVolume.toInt()}',
             style: theme.textTheme.headline6,
           ),
         ],

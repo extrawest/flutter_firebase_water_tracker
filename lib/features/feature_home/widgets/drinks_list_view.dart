@@ -12,6 +12,7 @@ class DrinksListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: theme.colorScheme.background,
       body: Container(
         decoration: BoxDecoration(

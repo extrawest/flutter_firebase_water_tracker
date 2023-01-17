@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,29 +5,6 @@ import 'package:water_tracker_app/features/feature_home/bloc/home_event.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_state.dart';
 import 'package:water_tracker_app/features/feature_home/models/user_model.dart';
 import 'package:water_tracker_app/features/feature_home/repositories/home_repository.dart';
-
-
-final _drinks = {
-  0: 'Water',
-  1: 'Tea',
-  2: 'Coffee',
-  3: 'Juice',
-  4: 'Milk',
-  5: 'Beer',
-  6: 'Wine',
-  7: 'Soda',
-};
-
-int getRandomNumber({required int upTo}) {
-  final random = Random();
-  final randomInt = random.nextInt(upTo);
-  return randomInt - randomInt % 10;
-}
-
-String getRandomDrink() {
-  final random = _drinks.keys.toList()..shuffle();
-  return _drinks[random.first]!;
-}
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -79,8 +54,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     await _homeRepository.addDrink(
-      drinkName: getRandomDrink(),
-      drinkAmount: getRandomNumber(upTo: 400),
+      drinkName: event.drink.name,
+      drinkAmount: event.drink.amount,
     );
   }
 

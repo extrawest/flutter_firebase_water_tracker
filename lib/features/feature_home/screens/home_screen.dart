@@ -32,6 +32,7 @@ class HomeScreen extends StatelessWidget {
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Theme.of(context).colorScheme.background,
             body: SafeArea(
               child: Padding(
