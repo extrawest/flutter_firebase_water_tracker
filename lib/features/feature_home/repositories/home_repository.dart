@@ -83,14 +83,18 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Stream<List<DrinkModel>> drinksStream() {
     final dateTimestamp = Timestamp.now().toDate().toString().split(' ')[0];
-    return firestoreService
-        .documentStream(
-      path: 'users/${auth.currentUser!.uid}/days/$dateTimestamp',
-      fromFirestore: (snapshot, _) => (snapshot.data()!['drinks'] as List)
-              .map((drink) => DrinkModel.fromJson(drink))
-              .toList(),
-      toFirestore: (data, _) => data.toMap(),
-    );
+    try {
+      return firestoreService
+          .documentStream(
+        path: 'users/${auth.currentUser!.uid}/days/$dateTimestamp',
+        fromFirestore: (snapshot, _) => (snapshot.data()!['drinks'] as List?)
+            ?.map((drink) => DrinkModel.fromJson(drink))
+            .toList() ?? [],
+        toFirestore: (data, _) => data.toMap(),
+      );
+    } on FirebaseException catch (_) {
+      rethrow;
+    }
   }
 
   @override
