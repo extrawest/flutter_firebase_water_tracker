@@ -8,6 +8,7 @@ import 'package:water_tracker_app/features/feature_home/services/account_service
 import 'package:water_tracker_app/features/feature_login/repositories/login_repository.dart';
 import 'package:water_tracker_app/features/feature_login/services/login_service.dart';
 
+import 'extrawest_wrapper.dart';
 import 'features/feature_home/services/dynamic_links_service.dart';
 import 'features/feature_home/services/firebase_config_service.dart';
 import 'features/feature_home/services/firebase_crashlytics_service.dart';
@@ -43,12 +44,7 @@ class WaterTrackerApp extends StatelessWidget {
           ),
         ),
       ],
-      child: MaterialApp(
-        title: 'Water Tracker',
-        theme: applicationTheme,
-        initialRoute: splashScreenRoute,
-        routes: applicationRoutes,
-      ),
+      child: const ExtrawestWrapper(),
     );
   }
 }

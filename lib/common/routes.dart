@@ -16,15 +16,36 @@ const accountScreenRoute = 'account_screen';
 const dailyGoalScreenRoute = 'daily_goal_screen';
 const drinksListScreenRoute = 'drinks_list_screen';
 
-final applicationRoutes = <String, WidgetBuilder>{
-  splashScreenRoute: (BuildContext context) => const SplashScreen(),
-  signInScreenRoute: (BuildContext context) => const SignInScreen(),
-  signUpScreenRoute: (BuildContext context) => const SignUpScreen(),
-  homeScreenRoute: (BuildContext context) => const HomeScreen(),
-  accountScreenRoute: (BuildContext context) => const AccountScreen(),
-};
+Route onGenerateRoute(RouteSettings settings) {
+  switch (settings.name) {
+    case splashScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const SplashScreen(),
+      );
+    case signInScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const SignInScreen(),
+      );
+    case signUpScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const SignUpScreen(),
+      );
+    case homeScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const HomeScreen(),
+      );
+    case accountScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const AccountScreen(),
+      );
+    default:
+      return MaterialPageRoute(
+        builder: (context) => const SplashScreen(),
+      );
+  }
+}
 
-Route<dynamic> onGenerateRouteNested (RouteSettings settings) {
+Route<dynamic> onGenerateRouteNested(RouteSettings settings) {
   switch (settings.name) {
     case dailyGoalScreenRoute:
       return MaterialPageRoute(
