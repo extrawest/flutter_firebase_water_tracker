@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_event.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_state.dart';
-import 'package:water_tracker_app/features/feature_home/models/user_model.dart';
 import 'package:water_tracker_app/features/feature_home/repositories/home_repository.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   final HomeRepository _homeRepository;
-  late Stream<UserModel> userStream = _homeRepository.userStream();
 
   HomeBloc(this._homeRepository) : super(const HomeState()) {
     on<HomeInitUserEvent>(_homeInitUserEvent);
@@ -72,7 +70,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           progressIndicatorType: progressIndicatorType,
           status: HomeStatus.success));
     } catch (e, stackTrace) {
-      // emit(state.copyWith(status: HomeStatus.failure));
+      emit(state.copyWith(status: HomeStatus.failure));
       await _homeRepository.recordError(e.toString(), stackTrace, reason: e);
     }
   }
