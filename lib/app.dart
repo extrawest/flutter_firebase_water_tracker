@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:water_tracker_app/common/routes.dart';
-import 'package:water_tracker_app/common/ui/theme/theme.dart';
 import 'package:water_tracker_app/features/feature_home/repositories/account_repository.dart';
 import 'package:water_tracker_app/features/feature_home/repositories/home_repository.dart';
 import 'package:water_tracker_app/features/feature_home/services/account_service.dart';

@@ -51,7 +51,7 @@ void main() {
           const Duration(seconds: 1),
           (_) {
             return [
-              DrinkModel(
+              const DrinkModel(
                 name: 'name',
                 amount: 100,
                 timestamp: 'timestamp',

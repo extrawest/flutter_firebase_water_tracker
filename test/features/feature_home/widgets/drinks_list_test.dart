@@ -7,7 +7,7 @@ void main() {
   testWidgets('should find widget in ListView', (widgetTester) async {
     final drinks = List.generate(
         100,
-        (index) => DrinkModel(
+        (index) => const DrinkModel(
             name: 'Water', amount: 200, timestamp: '2021-09-01 12:00:00.000'));
 
     await widgetTester.pumpWidget(MaterialApp(
