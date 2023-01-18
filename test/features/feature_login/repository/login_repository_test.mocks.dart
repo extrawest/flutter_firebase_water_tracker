@@ -138,6 +138,16 @@ class MockFirestoreService extends _i1.Mock implements _i5.FirestoreService {
   }
 
   @override
+  _i4.Future<bool> checkIfDocumentExists({required String? path}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkIfDocumentExists,
+          [],
+          {#path: path},
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+  @override
   _i4.Future<void> setData({
     required String? path,
     required Map<String, dynamic>? data,
