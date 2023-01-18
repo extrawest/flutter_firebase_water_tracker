@@ -54,6 +54,7 @@ class BottomApplicationBar extends StatelessWidget {
                 ),
               ),
               IconButton(
+                key: const Key('account_button'),
                 onPressed: () {
                   Navigator.of(context).pushNamed(accountScreenRoute);
                 },
