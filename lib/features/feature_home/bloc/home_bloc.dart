@@ -43,6 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _homeInitDrinksEvent(HomeInitDrinksEvent event, Emitter<HomeState> emit) async {
+    await _homeRepository.initDay();
     await emit.forEach(
       _homeRepository.drinksStream(),
       onData: (drinks) => state.copyWith(drinks: drinks, status: HomeStatus.success),

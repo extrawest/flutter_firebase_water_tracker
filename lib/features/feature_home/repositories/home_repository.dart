@@ -14,6 +14,8 @@ abstract class HomeRepository {
 
   Future<bool> addDrink({required String drinkName, required int drinkAmount});
 
+  Future<void> initDay();
+
   Stream<UserModel> userStream();
 
   Stream<List<DrinkModel>> drinksStream();
@@ -69,6 +71,21 @@ class HomeRepositoryImpl implements HomeRepository {
       parameters: {'amount': drinkAmount},
     );
     return true;
+  }
+
+  @override
+  Future<void> initDay() async {
+    final dateTimestamp = Timestamp.now().toDate().toString().split(' ')[0];
+    if (!await firestoreService.checkIfDocumentExists(
+      path: 'users/${auth.currentUser!.uid}/days/$dateTimestamp',
+    )) {
+      await firestoreService.setData(
+        path: 'users/${auth.currentUser!.uid}/days/$dateTimestamp',
+        data: {
+          'drinks': [],
+        },
+      );
+    }
   }
 
   @override

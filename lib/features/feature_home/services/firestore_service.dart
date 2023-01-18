@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 abstract class FirestoreService {
+  Future<bool> checkIfDocumentExists({required String path});
+
   Future<void> setData({
     required String path,
     required Map<String, dynamic> data,
@@ -25,6 +27,12 @@ class FirestoreServiceImpl implements FirestoreService {
 
   FirestoreServiceImpl({FirebaseFirestore? firestore, FirebaseAuth? auth})
       : _firestore = firestore ?? FirebaseFirestore.instance;
+
+  @override
+  Future<bool> checkIfDocumentExists({required String path}) async {
+    final document = await _firestore.doc(path).get();
+    return document.exists;
+  }
 
   @override
   Future<void> setData({
