@@ -32,6 +32,7 @@ migrate_working_dir/
 .pub/
 /build/
 coverage/
+sksl_shader01.json
 
 #firebase related
 lib/firebase_options.dart

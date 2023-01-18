@@ -47,6 +47,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 FormInput(
+                  key: const Key('signInEmailInput'),
                   label: 'Email',
                   hint: 'Enter your email',
                   icon: Icons.email,
@@ -55,6 +56,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 FormInput(
+                  key: const Key('signInPasswordInput'),
                   label: 'Password',
                   hint: 'Enter your password',
                   icon: Icons.lock,
@@ -71,6 +73,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 AuthButton(
+                  key: const Key('signInButton'),
                   text: 'LOGIN',
                   onPressed:() async {
                     await context.read<SignInCubit>().onLoginPressed();

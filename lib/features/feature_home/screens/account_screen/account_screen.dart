@@ -85,6 +85,7 @@ class AccountScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           ElevatedButton(
+                            key: const Key('logout_button'),
                             onPressed: () {
                               context.read<AccountCubit>().signOut();
                               Navigator.of(context)
