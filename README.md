@@ -4,21 +4,21 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)]()
 ![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
 ![GitHub release](https://img.shields.io/badge/release-v1.0.0-blue)
-[![View DEMO](https://img.shields.io/badge/VIEW-DEMO-lightgreen.svg)](https://streamable.com/qat029)
+[![View DEMO](https://img.shields.io/badge/VIEW-DEMO-lightgreen.svg)]()
 
 ## Project info
-- This project is a simple water tracker with login functionality.
+- This project is a water tracker app connected to Firebase.
 - The app is fully supported on iOS and Android.
 - The app is built using the Firebase authentication and Firestore database.
-- The app supports many others Firebase features such as Cloud Messaging, Crashlytics, Remote Config, etc.
+- The app uses others Firebase Services such as Cloud Messaging, Crashlytics, Remote Config, etc.
+- The covered with Unit Tests, Widget Tests and Integration Tests.
 
 ## Demo
-[Video](https://streamable.com/qat029) wich showcases the core functionlaity of the app with all screens developed yet.
 
 ## How to run
 - Clone the project
 ```shell
-$ git clone https://gitlab.extrawest.com/i-training/flutter/oleksii.melnychenko_google_maps_app.git_your_project_name
+$ git clone https://github.com/extrawest/flutter_firebase_water_tracker.git
 ```
 - Install dependencies
 ```shell
@@ -33,7 +33,7 @@ $ flutter pub get
 $ flutter run
 ```
 - Optional but highly recommended to setup pre-push hook
-    - Initializate git repository if you hevnt already
+    - Initialize git repository if you haven't already
     ```shel
         $ git init
     ```
@@ -64,3 +64,5 @@ $ flutter drive --profile --cache-sksl --write-sksl-on-exit sksl_shader01.json -
 ```
 
 #### Maintained by *Lesha Melnychenko*
+
+[Extrawest.com](https://www.extrawest.com), 2023
