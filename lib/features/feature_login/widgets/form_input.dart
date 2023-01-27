@@ -53,6 +53,7 @@ class FormInput extends StatelessWidget {
               const SizedBox(width: 16),
               Expanded(
                 child: TextField(
+                  autocorrect: false,
                   onChanged: onChanged?.call,
                   obscureText: isPassword && isPasswordObscured,
                   showCursor: true,

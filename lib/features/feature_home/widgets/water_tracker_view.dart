@@ -10,6 +10,7 @@ class WaterTrackerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
+      key: const Key('water_tracker_view'),
       child: Navigator(
         key: context.read<HomeBloc>().navigatorKey,
         onGenerateRoute: onGenerateRouteNested,

@@ -3,7 +3,7 @@ class DrinkModel {
   final int amount;
   final String timestamp;
 
-  DrinkModel({
+  const DrinkModel({
     required this.name,
     required this.amount,
     required this.timestamp,

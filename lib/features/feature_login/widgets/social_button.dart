@@ -13,24 +13,22 @@ class SocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: IconButton(
-        style: ButtonStyle(
-          padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
-          backgroundColor: MaterialStateProperty.all(Colors.white),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32),
-            ),
+    return IconButton(
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32),
           ),
-          shadowColor: MaterialStateProperty.all(
-            Colors.black54.withOpacity(0.5),
-          ),
-          elevation: MaterialStateProperty.all(9),
         ),
-        onPressed: onPressed,
-        icon: SvgPicture.asset(asset, width: 24, height: 24),
+        shadowColor: MaterialStateProperty.all(
+          Colors.black54.withOpacity(0.5),
+        ),
+        elevation: MaterialStateProperty.all(9),
       ),
+      onPressed: onPressed,
+      icon: SvgPicture.asset(asset, width: 24, height: 24),
     );
   }
 }

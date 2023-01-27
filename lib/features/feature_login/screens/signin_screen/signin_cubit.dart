@@ -23,7 +23,7 @@ class SignInCubit extends Cubit<SignInState> {
     catch (error, stackTrace) {
       emit(state.copyWith(error: error.toString()));
       Future.delayed(const Duration(seconds: 5), () {
-        emit(state.copyWith(error: ''));
+        emit(state.copyWith(error: error.toString()));
       });
       loginRepository.recordError(error.toString(), stackTrace, reason: 'Login Error');
     }

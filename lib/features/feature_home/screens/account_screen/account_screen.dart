@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_tracker_app/common/routes.dart';
-import 'package:water_tracker_app/features/feature_home/bloc/home_bloc.dart';
 import 'package:water_tracker_app/features/feature_home/repositories/account_repository.dart';
 import 'package:water_tracker_app/features/feature_home/screens/account_screen/account_state.dart';
 
@@ -57,12 +56,12 @@ class AccountScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 24),
                           Text(
-                            state.user!.name ?? 'No name',
+                            state.user!.name,
                             style: Theme.of(context).textTheme.headline5,
                           ),
                           const SizedBox(height: 24),
                           Text(
-                            state.user!.email ?? '',
+                            state.user!.email,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5
@@ -86,6 +85,7 @@ class AccountScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           ElevatedButton(
+                            key: const Key('logout_button'),
                             onPressed: () {
                               context.read<AccountCubit>().signOut();
                               Navigator.of(context)

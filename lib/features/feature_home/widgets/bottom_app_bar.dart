@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_tracker_app/common/routes.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_bloc.dart';
+import 'package:water_tracker_app/features/feature_home/models/drink_model.dart';
+import 'package:water_tracker_app/features/feature_home/widgets/drink_dialog.dart';
 
 import '../bloc/home_event.dart';
 
@@ -53,6 +54,7 @@ class BottomApplicationBar extends StatelessWidget {
                 ),
               ),
               IconButton(
+                key: const Key('account_button'),
                 onPressed: () {
                   Navigator.of(context).pushNamed(accountScreenRoute);
                 },
@@ -98,9 +100,17 @@ class BottomApplicationBar extends StatelessWidget {
             ],
           ),
           child: IconButton(
+            key: const Key('add_drink_button'),
             iconSize: 64,
-            onPressed: () {
-              context.read<HomeBloc>().add(HomeEventAddDrink());
+            onPressed: () async {
+              showDialog<DrinkModel>(
+                context: context,
+                builder: (context) => const DrinkDialog()
+              ).then((drink) {
+                if (drink != null) {
+                  BlocProvider.of<HomeBloc>(context).add(HomeEventAddDrink(drink));
+                }
+              });
             },
             style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsetsGeometry>(

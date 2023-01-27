@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:water_tracker_app/common/routes.dart';
 
 import '../bloc/home_bloc.dart';
+import '../bloc/home_state.dart';
+import 'drinks_list.dart';
 
 class DrinksListView extends StatelessWidget {
   const DrinksListView({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class DrinksListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: theme.colorScheme.background,
       body: Container(
         decoration: BoxDecoration(
@@ -32,39 +34,11 @@ class DrinksListView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const SizedBox.shrink(),
-                StreamBuilder(
-                  stream: context.read<HomeBloc>().drinksStreamSecond,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            final drink = snapshot.data![index];
-                            return ListTile(
-                              title: Text(
-                                drink.name,
-                                style: theme.textTheme.bodyText1?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.blueGrey,
-                                ),
-                              ),
-                              subtitle: Text(
-                                drink.timestamp.split('.')[0],
-                                style: theme.textTheme.subtitle2,
-                              ),
-                              trailing: Text(
-                                '${drink.amount} ml',
-                                style: theme.textTheme.bodyText1?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.blueGrey,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
+                BlocBuilder<HomeBloc, HomeState>(
+                  builder: (context, state) {
+                    final drinks = state.drinks;
+                    if (drinks.isNotEmpty) {
+                      return DrinksList(drinks: drinks);
                     } else {
                       return Center(
                         child: Text(

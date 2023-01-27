@@ -20,12 +20,12 @@ class _SplashScreenState extends State<SplashScreen> {
         bool isOpenedFromNotification = false;
         FirebaseMessaging.instance.getInitialMessage().then((message) {
           if(message != null){
-            Navigator.of(context).pushReplacementNamed(message.data["route"]);
+            Navigator.of(context).pushReplacementNamed(message.data['route']);
           }
           isOpenedFromNotification = true;
         });
         FirebaseMessaging.onMessageOpenedApp.listen((message) {
-          Navigator.of(context).pushReplacementNamed(message.data["route"]);
+          Navigator.of(context).pushReplacementNamed(message.data['route']);
           isOpenedFromNotification = true;
         });
         if(!isOpenedFromNotification) {

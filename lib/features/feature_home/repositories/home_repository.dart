@@ -5,14 +5,16 @@ import 'package:water_tracker_app/features/feature_home/services/dynamic_links_s
 
 import '../models/drink_model.dart';
 import '../models/user_model.dart';
-import '../services/FirebaseCrashlyticsService.dart';
 import '../services/firebase_config_service.dart';
+import '../services/firebase_crashlytics_service.dart';
 import '../services/firestore_service.dart';
 
 abstract class HomeRepository {
   Future<String> getProgressIndicatorType();
 
-  Future<void> addDrink({required String drinkName, required int drinkAmount});
+  Future<bool> addDrink({required String drinkName, required int drinkAmount});
+
+  Future<void> initDay();
 
   Stream<UserModel> userStream();
 
@@ -45,7 +47,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<void> addDrink({
+  Future<bool> addDrink({
     required String drinkName,
     required int drinkAmount,
   }) async {
@@ -68,6 +70,22 @@ class HomeRepositoryImpl implements HomeRepository {
       name: 'drink_added',
       parameters: {'amount': drinkAmount},
     );
+    return true;
+  }
+
+  @override
+  Future<void> initDay() async {
+    final dateTimestamp = Timestamp.now().toDate().toString().split(' ')[0];
+    if (!await firestoreService.checkIfDocumentExists(
+      path: 'users/${auth.currentUser!.uid}/days/$dateTimestamp',
+    )) {
+      await firestoreService.setData(
+        path: 'users/${auth.currentUser!.uid}/days/$dateTimestamp',
+        data: {
+          'drinks': [],
+        },
+      );
+    }
   }
 
   @override
@@ -82,14 +100,18 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Stream<List<DrinkModel>> drinksStream() {
     final dateTimestamp = Timestamp.now().toDate().toString().split(' ')[0];
-    return firestoreService
-        .documentStream(
-      path: 'users/${auth.currentUser!.uid}/days/$dateTimestamp',
-      fromFirestore: (snapshot, _) => (snapshot.data()!['drinks'] as List)
-              .map((drink) => DrinkModel.fromJson(drink))
-              .toList(),
-      toFirestore: (data, _) => data.toMap(),
-    );
+    try {
+      return firestoreService
+          .documentStream(
+        path: 'users/${auth.currentUser!.uid}/days/$dateTimestamp',
+        fromFirestore: (snapshot, _) => (snapshot.data()!['drinks'] as List?)
+            ?.map((drink) => DrinkModel.fromJson(drink))
+            .toList() ?? [],
+        toFirestore: (data, _) => data.toMap(),
+      );
+    } on FirebaseException catch (_) {
+      rethrow;
+    }
   }
 
   @override

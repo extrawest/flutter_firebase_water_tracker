@@ -2,8 +2,8 @@
 import 'package:water_tracker_app/features/feature_home/services/dynamic_links_service.dart';
 
 import '../models/user_model.dart';
-import '../services/FirebaseCrashlyticsService.dart';
 import '../services/account_service.dart';
+import '../services/firebase_crashlytics_service.dart';
 
 abstract class AccountRepository {
   Stream<UserModel> getUser();

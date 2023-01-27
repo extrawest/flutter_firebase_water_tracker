@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_bloc.dart';
 import 'package:water_tracker_app/features/feature_home/bloc/home_state.dart';
 import 'package:water_tracker_app/features/feature_home/widgets/calendar_bar.dart';
+import 'package:water_tracker_app/features/feature_home/widgets/home_placeholder.dart';
 
 import '../bloc/home_event.dart';
 import '../repositories/home_repository.dart';
@@ -18,7 +19,9 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeBloc(
         RepositoryProvider.of<HomeRepositoryImpl>(context),
       )
-        ..add(FetchRemoteConfigEvent())
+        // ..add(FetchRemoteConfigEvent())
+        ..add(HomeInitUserEvent())
+        ..add(HomeInitDrinksEvent())
         ..add(HandleDynamicLinkEvent(
             (intake) => ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -29,6 +32,7 @@ class HomeScreen extends StatelessWidget {
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Theme.of(context).colorScheme.background,
             body: SafeArea(
               child: Padding(
@@ -44,7 +48,9 @@ class HomeScreen extends StatelessWidget {
                       const Expanded(
                           child: Center(child: CircularProgressIndicator()))
                     else
-                      const WaterTrackerView(),
+                      state.drinks.isNotEmpty
+                          ? const WaterTrackerView()
+                          : const HomePlaceholder(),
                     const SizedBox(height: 24),
                     const BottomApplicationBar(),
                     const SizedBox(height: 24),
