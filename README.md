@@ -4,7 +4,7 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)]()
 ![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
 ![GitHub release](https://img.shields.io/badge/release-v1.0.0-blue)
-[![View DEMO](https://img.shields.io/badge/VIEW-DEMO-lightgreen.svg)]()
+[![View DEMO](https://img.shields.io/badge/VIEW-DEMO-lightgreen.svg)](https://user-images.githubusercontent.com/42183561/215068906-8dfd638f-4239-452d-bf11-a29520b07bf2.mp4)
 
 ## Project info
 - This project is a water tracker app connected to Firebase.
@@ -14,6 +14,8 @@
 - The covered with Unit Tests, Widget Tests and Integration Tests.
 
 ## Demo
+https://user-images.githubusercontent.com/42183561/215068906-8dfd638f-4239-452d-bf11-a29520b07bf2.mp4
+
 
 ## How to run
 - Clone the project
